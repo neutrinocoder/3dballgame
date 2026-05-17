@@ -1,0 +1,8 @@
+{
+  "name": "3D Game Assistant",
+  "description": "Assistant for building 3D games in Unity or the browser.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
