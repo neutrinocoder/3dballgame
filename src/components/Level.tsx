@@ -6,14 +6,6 @@ import * as THREE from 'three';
 
 export interface PlatformProps {
   position: [number, number, number];
-import { RigidBody, CuboidCollider } from '@react-three/rapier';
-import { useAppStore, useGameStore, LevelBlock } from '../store';
-import { Environment, Sky } from '@react-three/drei';
-import { officialLevels } from '../officialLevels';
-import * as THREE from 'three';
-
-export interface PlatformProps {
-  position: [number, number, number];
   size: [number, number, number];
   color?: string;
   isLava?: boolean;
