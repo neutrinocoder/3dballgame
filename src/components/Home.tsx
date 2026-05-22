@@ -1,4 +1,5 @@
 import { useAppStore, useGameStore } from '../store';
+import { officialLevels } from '../officialLevels';
 
 export function Home() {
   const setView = useAppStore(s => s.setView);
@@ -7,13 +8,7 @@ export function Home() {
   const deleteCustomLevel = useAppStore(s => s.deleteCustomLevel);
   const resetGame = useGameStore(s => s.resetGame);
 
-  const playDefault = () => {
-    setCurrentLevelId(null);
-    resetGame();
-    setView('play');
-  };
-
-  const playCustom = (id: string) => {
+  const playLevel = (id: string | null) => {
     setCurrentLevelId(id);
     resetGame();
     setView('play');
@@ -33,19 +28,36 @@ export function Home() {
         
         <div className="grid gap-4">
           <button 
-            onClick={playDefault}
-            className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-6 rounded-2xl text-xl shadow-lg transition-transform active:scale-95"
-          >
-            PLAY DEFAULT LEVEL
-          </button>
-          
-          <button 
             onClick={() => editLevel()}
             className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-6 rounded-2xl text-xl shadow-lg transition-transform active:scale-95 border border-slate-600"
           >
             CREATE NEW LEVEL
           </button>
         </div>
+
+        {officialLevels.length > 0 && (
+          <div className="mt-12 space-y-4">
+            <h2 className="text-2xl font-bold font-mono text-slate-300">OFFICIAL LEVELS ({officialLevels.length})</h2>
+            <div className="grid gap-3">
+              {officialLevels.map(level => (
+                <div key={level.id} className="bg-slate-800 p-4 rounded-xl flex items-center justify-between border border-slate-700">
+                  <div>
+                    <h3 className="text-xl font-bold text-white">{level.name}</h3>
+                    <p className="text-sm text-slate-400">{level.blocks.length} blocks</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={() => playLevel(level.id)}
+                      className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded font-bold"
+                    >
+                      PLAY
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {customLevels.length > 0 && (
           <div className="mt-12 space-y-4">
@@ -59,7 +71,7 @@ export function Home() {
                   </div>
                   <div className="flex gap-2">
                     <button 
-                      onClick={() => playCustom(level.id)}
+                      onClick={() => playLevel(level.id)}
                       className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded font-bold"
                     >
                       PLAY

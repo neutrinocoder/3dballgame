@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type BlockType = 'platform' | 'lava' | 'win' | 'ice';
+export type BlockType = 'platform' | 'lava' | 'win' | 'ice' | 'mud' | 'ship-portal' | 'sphere-portal' | 'wall';
 
 export interface LevelBlock {
   id: string;
@@ -55,6 +55,8 @@ export const useAppStore = create<AppState>()(
 interface GameState {
   status: 'playing' | 'dead' | 'won';
   setStatus: (status: 'playing' | 'dead' | 'won') => void;
+  playerShape: 'sphere' | 'ship';
+  setPlayerShape: (shape: 'sphere' | 'ship') => void;
   deaths: number;
   addDeath: () => void;
   startTime: number;
@@ -67,12 +69,14 @@ interface GameState {
 export const useGameStore = create<GameState>((set) => ({
   status: 'playing',
   setStatus: (status) => set({ status }),
+  playerShape: 'sphere',
+  setPlayerShape: (shape) => set({ playerShape: shape }),
   deaths: 0,
-  addDeath: () => set((state) => ({ deaths: state.deaths + 1, status: 'dead' })),
+  addDeath: () => set((state) => ({ deaths: state.deaths + 1, status: 'dead', playerShape: 'sphere' })),
   startTime: Date.now(),
   finishTime: null,
   startTimer: () => set({ startTime: Date.now(), finishTime: null }),
   stopTimer: () => set({ finishTime: Date.now() }),
-  resetGame: () => set({ status: 'playing', finishTime: null, startTime: Date.now() })
+  resetGame: () => set({ status: 'playing', finishTime: null, startTime: Date.now(), playerShape: 'sphere' })
 }));
 

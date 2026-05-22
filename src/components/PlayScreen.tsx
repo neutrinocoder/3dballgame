@@ -1,6 +1,7 @@
 import { KeyboardControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
+import { Suspense } from 'react';
 import { Level } from './Level';
 import { Player } from './Player';
 import { UI } from './UI';
@@ -18,23 +19,19 @@ export function PlayScreen() {
     <>
       <UI />
       <KeyboardControls map={keyboardMap}>
-        <Canvas shadows camera={{ position: [0, 5, 10], fov: 60 }}>
+        <Canvas camera={{ position: [0, 5, 10], fov: 60 }}>
           <ambientLight intensity={0.5} />
           <directionalLight
-            castShadow
             position={[10, 20, 10]}
             intensity={1.5}
-            shadow-mapSize={[2048, 2048]}
-            shadow-camera-left={-20}
-            shadow-camera-right={20}
-            shadow-camera-top={20}
-            shadow-camera-bottom={-20}
           />
 
-          <Physics timeStep="vary">
-            <Level />
-            <Player />
-          </Physics>
+          <Suspense fallback={null}>
+            <Physics gravity={[0, -20, 0]}>
+              <Level />
+              <Player />
+            </Physics>
+          </Suspense>
         </Canvas>
       </KeyboardControls>
     </>
