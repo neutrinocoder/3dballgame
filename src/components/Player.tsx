@@ -113,6 +113,20 @@ export function Player() {
     // Movement direction according to camera's Y rotation
     const direction = inputVector.clone().applyEuler(new THREE.Euler(0, euler.current.y, 0));
 
+    if (playerShape === 'ufo') {
+      // UFO: Constant forward speed, no mouse tracking up/down, relies entirely on clicks and gravity
+      body.current.setLinvel({ x: 0, y: linvel.y, z: -8 }, true);
+      // Keep mesh oriented forward but still flip if gravity flips
+      meshGroup.current.rotation.x = THREE.MathUtils.lerp(meshGroup.current.rotation.x, gravityDir === -1 ? Math.PI : 0, 10 * delta);
+      meshGroup.current.rotation.z = THREE.MathUtils.lerp(meshGroup.current.rotation.z, 0, 10 * delta);
+      
+      if (jump && state.clock.elapsedTime - lastJumpTime.current > 0.3) {
+         body.current.setLinvel({ x: 0, y: 8 * gravityDir, z: -8 }, true);
+         lastJumpTime.current = state.clock.elapsedTime;
+      }
+      return;
+    }
+
     if (playerShape === 'ship') {
       let targetY = linvel.y;
       if (jump) {
@@ -241,7 +255,7 @@ export function Player() {
         if (other.rigidBodyObject?.userData?.isMud) mudContacts.current = Math.max(0, mudContacts.current - 1);
       }}
     >
-      {playerShape === 'ship' ? (
+      {playerShape === 'ship' || playerShape === 'ufo' ? (
         <CuboidCollider args={[0.6, 1, 1]} />
       ) : (
         <BallCollider args={[0.5]} />
@@ -271,6 +285,11 @@ export function Player() {
               <meshStandardMaterial color="#fb923c" emissive="#ea580c" emissiveIntensity={2} transparent opacity={0.8} />
             </mesh>
           </group>
+        ) : playerShape === 'ufo' ? (
+          <mesh castShadow receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
+            <coneGeometry args={[0.5, 1.5, 16]} />
+            <meshStandardMaterial color="#f97316" metalness={0.8} roughness={0.2} />
+          </mesh>
         ) : (
           <mesh castShadow>
             <sphereGeometry args={[0.5, 32, 32]} />

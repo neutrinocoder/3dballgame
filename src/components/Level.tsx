@@ -14,12 +14,13 @@ export interface PlatformProps {
   isMud?: boolean;
   isShipPortal?: boolean;
   isSpherePortal?: boolean;
+  isUfoPortal?: boolean;
   isWall?: boolean;
   isGravityUpPortal?: boolean;
   isGravityDownPortal?: boolean;
 }
 
-export function Platform({ position, size, color = '#ffffff', isLava, isWin, isIce, isMud, isShipPortal, isSpherePortal, isWall, isGravityUpPortal, isGravityDownPortal }: PlatformProps) {
+export function Platform({ position, size, color = '#ffffff', isLava, isWin, isIce, isMud, isShipPortal, isSpherePortal, isUfoPortal, isWall, isGravityUpPortal, isGravityDownPortal }: PlatformProps) {
   const addDeath = useGameStore((s) => s.addDeath);
   const setStatus = useGameStore((s) => s.setStatus);
   const stopTimer = useGameStore((s) => s.stopTimer);
@@ -29,7 +30,7 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
   const gravityDir = useGameStore((s) => s.gravityDirection);
 
   const isGravityPortal = isGravityUpPortal || isGravityDownPortal;
-  const isShapePortal = isShipPortal || isSpherePortal;
+  const isShapePortal = isShipPortal || isSpherePortal || isUfoPortal;
   const isPortal = isShapePortal || isGravityPortal;
   const isSensor = isPortal;
   const colliderSize = isShapePortal ? [400, 400, size[2]] : size;
@@ -44,6 +45,7 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
       onIntersectionEnter={() => {
         if (isShipPortal) setPlayerShape('ship');
         else if (isSpherePortal) setPlayerShape('sphere');
+        else if (isUfoPortal) setPlayerShape('ufo');
         else if (isGravityUpPortal) setGravityDirection(-1);
         else if (isGravityDownPortal) setGravityDirection(1);
       }}
@@ -106,6 +108,7 @@ export function Level() {
           isMud={block.type === 'mud'}
           isShipPortal={block.type === 'ship-portal'}
           isSpherePortal={block.type === 'sphere-portal'}
+          isUfoPortal={block.type === 'ufo-portal'}
           isWall={block.type === 'wall'}
           isGravityUpPortal={block.type === 'gravity-up-portal'}
           isGravityDownPortal={block.type === 'gravity-down-portal'}

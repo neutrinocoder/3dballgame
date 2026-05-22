@@ -56,26 +56,40 @@ export const officialLevels: CustomLevel[] = [
       { id: uuidv4(), position: [0, -7, -170], size: [10, 1, 10], type: 'platform', color: '#cbd5e1' },
 
       // 7. ANTI-GRAVITY SECTION
-      // Go upside down!
       { id: uuidv4(), position: [0, -5, -180], size: [8, 8, 2], type: 'gravity-up-portal', color: '#eab308' },
-      
-      // Upside down ceiling platforms (y = 5, gravity pulls UP so we land on bottom of platform)
       { id: uuidv4(), position: [0, 5, -185], size: [10, 1, 10], type: 'platform', color: '#cbd5e1' },
-      
-      // Jump along ceiling (gap of 3 units, jump towards y=0)
       { id: uuidv4(), position: [0, 5, -196], size: [8, 1, 8], type: 'platform', color: '#cbd5e1' },
-      
-      // Walk off edge and "drop" up to y=12
       { id: uuidv4(), position: [0, 12, -206], size: [8, 1, 8], type: 'platform', color: '#cbd5e1' }, 
-
-      // Return to normal gravity
       { id: uuidv4(), position: [0, 10, -216], size: [8, 8, 2], type: 'gravity-down-portal', color: '#22c55e' },
-      
-      // Fall down to final platform
       { id: uuidv4(), position: [0, -5, -226], size: [10, 1, 15], type: 'platform', color: '#cbd5e1' },
 
+      // 8. UFO FLAPPY BIRD SECTION
+      { id: uuidv4(), position: [0, -3, -240], size: [8, 8, 2], type: 'ufo-portal', color: '#f97316' },
+      
+      // Lava floor so they have to fly
+      { id: uuidv4(), position: [0, -20, -270], size: [20, 2, 60], type: 'lava', color: '#ef4444' },
+
+      // Flappy bird pipes (walls you have to jump through)
+      // Pipe 1 (Gap in middle)
+      { id: uuidv4(), position: [0, 10, -255], size: [20, 20, 2], type: 'wall', color: '#94a3b8' },
+      { id: uuidv4(), position: [0, -20, -255], size: [20, 20, 2], type: 'wall', color: '#94a3b8' },
+
+      // Pipe 2 (Gap up high)
+      { id: uuidv4(), position: [0, 15, -275], size: [20, 10, 2], type: 'wall', color: '#94a3b8' },
+      { id: uuidv4(), position: [0, -15, -275], size: [20, 30, 2], type: 'wall', color: '#94a3b8' },
+      
+      // Pipe 3 (Gap down low)
+      { id: uuidv4(), position: [0, 5, -295], size: [20, 30, 2], type: 'wall', color: '#94a3b8' },
+      { id: uuidv4(), position: [0, -25, -295], size: [20, 10, 2], type: 'wall', color: '#94a3b8' },
+
+      // Return to Sphere
+      { id: uuidv4(), position: [0, -3, -315], size: [8, 8, 2], type: 'sphere-portal', color: '#3b82f6' },
+      
+      // Final platform
+      { id: uuidv4(), position: [0, -5, -325], size: [10, 1, 10], type: 'platform', color: '#cbd5e1' },
+
       // Final Jump
-      { id: uuidv4(), position: [0, -5, -238], size: [8, 1, 8], type: 'win', color: '#10b981' }
+      { id: uuidv4(), position: [0, -5, -337], size: [8, 1, 8], type: 'win', color: '#10b981' }
     ]
   }
 ];
