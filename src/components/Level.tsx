@@ -25,9 +25,7 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
   const setStatus = useGameStore((s) => s.setStatus);
   const stopTimer = useGameStore((s) => s.stopTimer);
   const setPlayerShape = useGameStore((s) => s.setPlayerShape);
-  const playerShape = useGameStore((s) => s.playerShape);
   const setGravityDirection = useGameStore((s) => s.setGravityDirection);
-  const gravityDir = useGameStore((s) => s.gravityDirection);
 
   const isGravityPortal = isGravityUpPortal || isGravityDownPortal;
   const isShapePortal = isShipPortal || isSpherePortal || isUfoPortal;
@@ -50,12 +48,13 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
         else if (isGravityDownPortal) setGravityDirection(1);
       }}
       onCollisionEnter={() => {
+        const currentShape = useGameStore.getState().playerShape;
         if (isWin) {
           setStatus('won');
           stopTimer();
         } else if (isLava) {
           addDeath();
-        } else if (!isSensor && (playerShape === 'ship' || playerShape === 'ufo')) {
+        } else if (!isSensor && (currentShape === 'ship' || currentShape === 'ufo')) {
           addDeath(); // Ship and UFO die on any solid block
         }
       }}
