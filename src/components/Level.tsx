@@ -6,6 +6,14 @@ import * as THREE from 'three';
 
 export interface PlatformProps {
   position: [number, number, number];
+import { RigidBody, CuboidCollider } from '@react-three/rapier';
+import { useAppStore, useGameStore, LevelBlock } from '../store';
+import { Environment, Sky } from '@react-three/drei';
+import { officialLevels } from '../officialLevels';
+import * as THREE from 'three';
+
+export interface PlatformProps {
+  position: [number, number, number];
   size: [number, number, number];
   color?: string;
   isLava?: boolean;
@@ -15,23 +23,21 @@ export interface PlatformProps {
   isShipPortal?: boolean;
   isSpherePortal?: boolean;
   isWall?: boolean;
-  isCheckpoint?: boolean;
   isGravityUpPortal?: boolean;
   isGravityDownPortal?: boolean;
 }
 
-export function Platform({ position, size, color = '#ffffff', isLava, isWin, isIce, isMud, isShipPortal, isSpherePortal, isWall, isCheckpoint, isGravityUpPortal, isGravityDownPortal }: PlatformProps) {
+export function Platform({ position, size, color = '#ffffff', isLava, isWin, isIce, isMud, isShipPortal, isSpherePortal, isWall, isGravityUpPortal, isGravityDownPortal }: PlatformProps) {
   const addDeath = useGameStore((s) => s.addDeath);
   const setStatus = useGameStore((s) => s.setStatus);
   const stopTimer = useGameStore((s) => s.stopTimer);
   const setPlayerShape = useGameStore((s) => s.setPlayerShape);
   const playerShape = useGameStore((s) => s.playerShape);
-  const setCheckpoint = useGameStore((s) => s.setCheckpoint);
   const setGravityDirection = useGameStore((s) => s.setGravityDirection);
   const gravityDir = useGameStore((s) => s.gravityDirection);
 
   const isPortal = isShipPortal || isSpherePortal || isGravityUpPortal || isGravityDownPortal;
-  const isSensor = isPortal || isCheckpoint;
+  const isSensor = isPortal;
   const colliderSize = isPortal ? [400, 400, size[2]] : size;
   const visualSize = size;
 
@@ -46,7 +52,6 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
         else if (isSpherePortal) setPlayerShape('sphere');
         else if (isGravityUpPortal) setGravityDirection(-1);
         else if (isGravityDownPortal) setGravityDirection(1);
-        else if (isCheckpoint) setCheckpoint([position[0], position[1] + 1, position[2]], gravityDir);
       }}
       onCollisionEnter={() => {
         if (isWin) {
@@ -68,8 +73,6 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
           <meshStandardMaterial color={color} transparent opacity={0.6} roughness={0.1} />
         ) : isPortal ? (
           <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.8} transparent opacity={0.6} depthWrite={false} side={THREE.DoubleSide} />
-        ) : isCheckpoint ? (
-          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.5} transparent opacity={0.8} />
         ) : isMud ? (
           <meshStandardMaterial color={color} roughness={1} />
         ) : isWall ? (
@@ -110,7 +113,6 @@ export function Level() {
           isShipPortal={block.type === 'ship-portal'}
           isSpherePortal={block.type === 'sphere-portal'}
           isWall={block.type === 'wall'}
-          isCheckpoint={block.type === 'checkpoint'}
           isGravityUpPortal={block.type === 'gravity-up-portal'}
           isGravityDownPortal={block.type === 'gravity-down-portal'}
         />

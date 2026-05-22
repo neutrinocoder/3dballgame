@@ -22,16 +22,15 @@ export function Player() {
   const status = useGameStore((s) => s.status);
   const addDeath = useGameStore((s) => s.addDeath);
   const playerShape = useGameStore((s) => s.playerShape);
-  const currentCheckpoint = useGameStore((s) => s.currentCheckpoint);
   const gravityDir = useGameStore((s) => s.gravityDirection);
 
   useEffect(() => {
     if (status === 'playing' && body.current) {
-      body.current.setTranslation({ x: currentCheckpoint.position[0], y: currentCheckpoint.position[1], z: currentCheckpoint.position[2] }, true);
+      body.current.setTranslation({ x: 0, y: 1, z: 0 }, true);
       body.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
       body.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
     }
-  }, [status, currentCheckpoint.position]);
+  }, [status]);
 
   useEffect(() => {
     const handleClick = () => {
@@ -173,7 +172,7 @@ export function Player() {
       if (mudContacts.current > 0) {
         currentSpeed = 4; // slow movement
         lerpFactor = Math.min(15 * delta, 1); // high friction in mud, stops quickly
-        jumpForce = 3 * gravityDir; // hard to jump
+        jumpForce = 2 * gravityDir; // hard to jump
         linvel.y = gravityDir === 1 ? Math.min(linvel.y, 0) : Math.max(linvel.y, 0); // kill bounce
       } else if (iceContacts.current > 0) {
         lerpFactor = Math.min(1 * delta, 1); // low friction, slide easily with lots of momentum

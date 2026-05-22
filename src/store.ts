@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type BlockType = 'platform' | 'lava' | 'win' | 'ice' | 'mud' | 'ship-portal' | 'sphere-portal' | 'wall' | 'checkpoint' | 'gravity-up-portal' | 'gravity-down-portal';
+export type BlockType = 'platform' | 'lava' | 'win' | 'ice' | 'mud' | 'ship-portal' | 'sphere-portal' | 'wall' | 'gravity-up-portal' | 'gravity-down-portal';
 
 export interface LevelBlock {
   id: string;
@@ -63,8 +63,6 @@ interface GameState {
   finishTime: number | null;
   gravityDirection: 1 | -1;
   setGravityDirection: (dir: 1 | -1) => void;
-  currentCheckpoint: { position: [number, number, number], gravity: 1 | -1 };
-  setCheckpoint: (position: [number, number, number], gravity: 1 | -1) => void;
   startTimer: () => void;
   stopTimer: () => void;
   resetGame: () => void;
@@ -82,25 +80,22 @@ export const useGameStore = create<GameState>((set) => ({
   finishTime: null,
   gravityDirection: 1,
   setGravityDirection: (dir) => set({ gravityDirection: dir }),
-  currentCheckpoint: { position: [0, 1, 0], gravity: 1 },
-  setCheckpoint: (position, gravity) => set({ currentCheckpoint: { position, gravity } }),
   startTimer: () => set({ startTime: Date.now(), finishTime: null, deaths: 0 }),
   stopTimer: () => set({ finishTime: Date.now() }),
-  // Respawn at checkpoint
-  resetGame: () => set((state) => ({ 
+  resetGame: () => set({ 
     status: 'playing', 
     playerShape: 'sphere',
-    gravityDirection: state.currentCheckpoint.gravity 
-  })),
-  // Completely restart level
+    gravityDirection: 1,
+    finishTime: null,
+    startTime: Date.now()
+  }),
   fullResetGame: () => set({ 
     status: 'playing', 
     finishTime: null, 
     startTime: Date.now(), 
     playerShape: 'sphere', 
     deaths: 0,
-    gravityDirection: 1,
-    currentCheckpoint: { position: [0, 1, 0], gravity: 1 }
+    gravityDirection: 1
   })
 }));
 
