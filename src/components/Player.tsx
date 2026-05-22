@@ -124,10 +124,7 @@ export function Player() {
          body.current.setLinvel({ x: 0, y: 8 * gravityDir, z: -8 }, true);
          lastJumpTime.current = state.clock.elapsedTime;
       }
-      return;
-    }
-
-    if (playerShape === 'ship') {
+    } else if (playerShape === 'ship') {
       let targetY = linvel.y;
       if (jump) {
         // Geometry Dash style ship thrust
