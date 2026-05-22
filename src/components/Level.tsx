@@ -28,9 +28,11 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
   const setGravityDirection = useGameStore((s) => s.setGravityDirection);
   const gravityDir = useGameStore((s) => s.gravityDirection);
 
-  const isPortal = isShipPortal || isSpherePortal || isGravityUpPortal || isGravityDownPortal;
+  const isGravityPortal = isGravityUpPortal || isGravityDownPortal;
+  const isShapePortal = isShipPortal || isSpherePortal;
+  const isPortal = isShapePortal || isGravityPortal;
   const isSensor = isPortal;
-  const colliderSize = isPortal ? [400, 400, size[2]] : size;
+  const colliderSize = isShapePortal ? [400, 400, size[2]] : size;
   const visualSize = size;
 
   return (

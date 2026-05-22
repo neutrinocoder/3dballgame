@@ -59,22 +59,23 @@ export const officialLevels: CustomLevel[] = [
       // Go upside down!
       { id: uuidv4(), position: [0, -5, -180], size: [8, 8, 2], type: 'gravity-up-portal', color: '#eab308' },
       
-      // Upside down ceiling platforms (y = 0 or 2, we must jump UP towards the ceiling)
-      // Since gravity pulls UP (y = 20), we fall to a higher Y value.
-      { id: uuidv4(), position: [0, 5, -190], size: [8, 1, 8], type: 'platform', color: '#cbd5e1' },
+      // Upside down ceiling platforms (y = 5, gravity pulls UP so we land on bottom of platform)
+      { id: uuidv4(), position: [0, 5, -185], size: [10, 1, 10], type: 'platform', color: '#cbd5e1' },
       
-      // Jump along ceiling
-      { id: uuidv4(), position: [0, 5, -200], size: [6, 1, 6], type: 'platform', color: '#cbd5e1' },
-      { id: uuidv4(), position: [0, 3, -215], size: [6, 1, 6], type: 'platform', color: '#cbd5e1' }, // Drop "up" to y=3
+      // Jump along ceiling (gap of 3 units, jump towards y=0)
+      { id: uuidv4(), position: [0, 5, -196], size: [8, 1, 8], type: 'platform', color: '#cbd5e1' },
+      
+      // Walk off edge and "drop" up to y=12
+      { id: uuidv4(), position: [0, 12, -206], size: [8, 1, 8], type: 'platform', color: '#cbd5e1' }, 
 
       // Return to normal gravity
-      { id: uuidv4(), position: [0, 1, -225], size: [8, 8, 2], type: 'gravity-down-portal', color: '#22c55e' },
+      { id: uuidv4(), position: [0, 10, -216], size: [8, 8, 2], type: 'gravity-down-portal', color: '#22c55e' },
       
       // Fall down to final platform
-      { id: uuidv4(), position: [0, -15, -235], size: [10, 1, 10], type: 'platform', color: '#cbd5e1' },
+      { id: uuidv4(), position: [0, -5, -226], size: [10, 1, 15], type: 'platform', color: '#cbd5e1' },
 
       // Final Jump
-      { id: uuidv4(), position: [0, -15, -247], size: [8, 1, 8], type: 'win', color: '#10b981' }
+      { id: uuidv4(), position: [0, -5, -238], size: [8, 1, 8], type: 'win', color: '#10b981' }
     ]
   }
 ];
