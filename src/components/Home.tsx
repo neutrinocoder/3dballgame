@@ -20,8 +20,8 @@ export function Home() {
   };
 
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 overflow-y-auto">
-      <div className="max-w-2xl w-full p-8 space-y-8 my-auto">
+    <div className="absolute inset-0 flex flex-col items-center bg-slate-900 overflow-y-auto pt-16 pb-16">
+      <div className="max-w-2xl w-full p-8 space-y-8">
         <h1 className="text-6xl font-black font-mono text-center text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-indigo-600 tracking-tight">
           OBBY MAKER
         </h1>
