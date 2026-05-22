@@ -17,6 +17,7 @@ export function Player() {
   const euler = useRef(new THREE.Euler(0, 0, 0, 'YXZ'));
   const isPointerLocked = useRef(false);
   const isClicking = useRef(false);
+  const clickBuffer = useRef(false);
   const iceContacts = useRef(0);
   const mudContacts = useRef(0);
 
@@ -58,7 +59,10 @@ export function Player() {
     };
 
     const handlePointerDown = (e: MouseEvent) => {
-      if (e.button === 0 && isPointerLocked.current) isClicking.current = true;
+      if (e.button === 0 && isPointerLocked.current) {
+        isClicking.current = true;
+        clickBuffer.current = true;
+      }
     };
 
     const handlePointerUp = (e: MouseEvent) => {
@@ -101,7 +105,8 @@ export function Player() {
     if (!body.current || status !== 'playing') return;
 
     const { forward, back, left, right, jump: keyboardJump } = getKeys();
-    const jump = keyboardJump || isClicking.current;
+    const jump = keyboardJump || isClicking.current || clickBuffer.current;
+    clickBuffer.current = false;
     const translation = body.current.translation();
     const linvel = body.current.linvel();
     
