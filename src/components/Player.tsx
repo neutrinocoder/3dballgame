@@ -136,8 +136,10 @@ export function Player() {
       // UFO: Constant forward speed, no mouse tracking up/down, relies entirely on clicks and gravity
       body.current.setLinvel({ x: 0, y: linvel.y, z: -8 }, true);
       // Keep mesh oriented forward but still flip if gravity flips
-      meshGroup.current.rotation.x = THREE.MathUtils.lerp(meshGroup.current.rotation.x, gravityDir === -1 ? Math.PI : 0, 10 * delta);
-      meshGroup.current.rotation.z = THREE.MathUtils.lerp(meshGroup.current.rotation.z, 0, 10 * delta);
+      if (meshRef.current) {
+        meshRef.current.rotation.x = THREE.MathUtils.lerp(meshRef.current.rotation.x, gravityDir === -1 ? Math.PI : 0, 10 * delta);
+        meshRef.current.rotation.z = THREE.MathUtils.lerp(meshRef.current.rotation.z, 0, 10 * delta);
+      }
       
       if (jump && state.clock.elapsedTime - lastJumpTime.current > 0.3) {
          body.current.setLinvel({ x: 0, y: 8 * gravityDir, z: -8 }, true);
