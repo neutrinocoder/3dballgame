@@ -54,8 +54,8 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
           stopTimer();
         } else if (isLava) {
           addDeath();
-        } else if (!isSensor && (currentShape === 'ship' || currentShape === 'ufo')) {
-          addDeath(); // Ship and UFO die on any solid block
+        } else if (!isSensor && currentShape === 'ship') {
+          addDeath(); // Ship dies on any solid block
         }
       }}
     >

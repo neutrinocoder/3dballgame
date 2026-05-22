@@ -272,7 +272,7 @@ export function Player() {
       }}
     >
       {playerShape === 'ship' || playerShape === 'ufo' ? (
-        <CuboidCollider args={[0.6, 1, 1]} />
+        <CuboidCollider args={[0.4, 0.4, 0.4]} />
       ) : (
         <BallCollider args={[0.5]} />
       )}
