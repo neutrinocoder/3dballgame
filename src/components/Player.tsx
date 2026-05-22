@@ -22,6 +22,16 @@ export function Player() {
   const status = useGameStore((s) => s.status);
   const addDeath = useGameStore((s) => s.addDeath);
   const playerShape = useGameStore((s) => s.playerShape);
+  const currentCheckpoint = useGameStore((s) => s.currentCheckpoint);
+  const gravityDir = useGameStore((s) => s.gravityDirection);
+
+  useEffect(() => {
+    if (status === 'playing' && body.current) {
+      body.current.setTranslation({ x: currentCheckpoint.position[0], y: currentCheckpoint.position[1], z: currentCheckpoint.position[2] }, true);
+      body.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
+      body.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
+    }
+  }, [status, currentCheckpoint.position]);
 
   useEffect(() => {
     const handleClick = () => {
@@ -134,8 +144,9 @@ export function Player() {
         }
         
         // Tilt the ship based on vertical velocity
-        const pitchAngle = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, linvel.y * 0.15));
+        const pitchAngle = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, linvel.y * gravityDir * 0.15));
         meshRef.current.rotation.x = THREE.MathUtils.lerp(meshRef.current.rotation.x, pitchAngle, Math.min(10 * delta, 1));
+        meshRef.current.rotation.z = THREE.MathUtils.lerp(meshRef.current.rotation.z, gravityDir === -1 ? Math.PI : 0, Math.min(10 * delta, 1));
       }
 
       // Thruster Animation
@@ -145,18 +156,27 @@ export function Player() {
         thrusterRef.current.rotation.y += 20 * delta; // flicker effect
       }
     } else {
+      // Jump Raycast Implementation (Moved up to use for air momentum)
+      const rayOrigin = new THREE.Vector3(translation.x, translation.y - (0.51 * gravityDir), translation.z);
+      const rayDir = new THREE.Vector3(0, -gravityDir, 0);
+      const ray = new rapier.Ray(rayOrigin, rayDir);
+      const hit = world.castRay(ray, 0.2, true);
+      const isGrounded = hit !== null;
+
       // SPHERE PHYSICS
       let currentSpeed = 12;
-      let lerpFactor = Math.min(10 * delta, 1); // frame-rate independent lerp
-      let jumpForce = 4.5;
+      
+      // Add momentum: slower acceleration on ground, and very limited air-control to preserve jump arcs
+      let lerpFactor = isGrounded ? Math.min(5 * delta, 1) : Math.min(2 * delta, 1); 
+      let jumpForce = 5.5 * gravityDir;
 
       if (mudContacts.current > 0) {
         currentSpeed = 4; // slow movement
-        lerpFactor = Math.min(20 * delta, 1); // high friction
-        jumpForce = 2.5; // hard to jump
-        linvel.y = Math.min(linvel.y, 0); // kill upward bounce instantly in mud
+        lerpFactor = Math.min(15 * delta, 1); // high friction in mud, stops quickly
+        jumpForce = 3 * gravityDir; // hard to jump
+        linvel.y = gravityDir === 1 ? Math.min(linvel.y, 0) : Math.max(linvel.y, 0); // kill bounce
       } else if (iceContacts.current > 0) {
-        lerpFactor = Math.min(2 * delta, 1); // low friction, slide easily
+        lerpFactor = Math.min(1 * delta, 1); // low friction, slide easily with lots of momentum
       }
 
       const targetVelocity = direction.multiplyScalar(currentSpeed);
@@ -167,22 +187,14 @@ export function Player() {
         z: THREE.MathUtils.lerp(linvel.z, targetVelocity.z, lerpFactor)
       }, true);
 
-      // Jump Raycast Implementation
-      const rayOrigin = new THREE.Vector3(translation.x, translation.y - 0.51, translation.z);
-      const rayDir = new THREE.Vector3(0, -1, 0);
-      const ray = new rapier.Ray(rayOrigin, rayDir);
-      const hit = world.castRay(ray, 0.2, true);
-
-      const isGrounded = hit !== null;
-
-      if (jump && isGrounded && state.clock.elapsedTime - lastJumpTime.current > 0.3) {
+      if (jump && isGrounded && state.clock.elapsedTime - lastJumpTime.current > 0.05) {
         body.current.applyImpulse({ x: 0, y: jumpForce, z: 0 }, true);
         lastJumpTime.current = state.clock.elapsedTime;
       }
       
       if (meshRef.current) {
-        // Reset rotation if switching back to sphere
-        meshRef.current.rotation.set(0, 0, 0);
+        // Reset rotation if switching back to sphere, but keep Z flipped if upside down
+        meshRef.current.rotation.set(0, 0, gravityDir === -1 ? Math.PI : 0);
       }
     }
 

@@ -7,61 +7,83 @@ export const officialLevels: CustomLevel[] = [
     name: 'The Ultimate Showcase',
     blocks: [
       // 1. START AREA
-      { id: uuidv4(), position: [0, -1, 0], size: [10, 1, 10], type: 'platform', color: '#94a3b8' },
+      { id: uuidv4(), position: [0, -1, 0], size: [10, 1, 10], type: 'platform', color: '#ffffff' },
       
-      // 2. BASIC JUMPS
-      // Heavy gravity limits flat jumps to ~5.4 units!
-      { id: uuidv4(), position: [0, -1, -12], size: [8, 1, 8], type: 'platform', color: '#94a3b8' }, // 3 unit gap
-      
-      // Jumping DOWN allows for more horizontal distance
-      { id: uuidv4(), position: [0, -3, -25], size: [6, 1, 6], type: 'platform', color: '#94a3b8' }, // Drop 2 units, 6 unit gap
+      // 2. BASIC JUMPS (Gravity Jump force increased to 5.5, max gap is ~6-7 units flat)
+      { id: uuidv4(), position: [0, -1, -12], size: [8, 1, 8], type: 'platform', color: '#ffffff' }, // Gap = 3
+      { id: uuidv4(), position: [0, -3, -25], size: [6, 1, 6], type: 'platform', color: '#ffffff' }, // Drop 2 units, Gap = 6
+
+      // CHECKPOINT 1
+      { id: uuidv4(), position: [0, -2.5, -25], size: [6, 0.5, 6], type: 'checkpoint', color: '#00ff88' },
 
       // 3. MUD SECTION
-      // Mud kills momentum. Max flat jump is now ~1 unit!
-      { id: uuidv4(), position: [0, -5, -35], size: [8, 1, 8], type: 'mud', color: '#78350f' },
-      { id: uuidv4(), position: [0, -5, -42], size: [4, 1, 4], type: 'mud', color: '#78350f' }, // 1 unit gap
-      { id: uuidv4(), position: [0, -5, -47], size: [4, 1, 4], type: 'platform', color: '#94a3b8' }, // 1 unit gap to escape
+      { id: uuidv4(), position: [0, -5, -35], size: [8, 1, 8], type: 'mud', color: '#8b4513' },
+      { id: uuidv4(), position: [0, -5, -43], size: [4, 1, 4], type: 'mud', color: '#8b4513' }, // Mud gap 2
+      { id: uuidv4(), position: [0, -5, -50], size: [6, 1, 6], type: 'platform', color: '#ffffff' }, // Mud to platform gap 3
+
+      // CHECKPOINT 2
+      { id: uuidv4(), position: [0, -4.5, -50], size: [6, 0.5, 6], type: 'checkpoint', color: '#00ff88' },
 
       // 4. ICE SLIDE & LAVA JUMP
-      { id: uuidv4(), position: [0, -7, -60], size: [8, 1, 14], type: 'ice', color: '#bae6fd' },
-      
+      { id: uuidv4(), position: [0, -7, -65], size: [8, 1, 14], type: 'ice', color: '#00ffff' },
       // Lava trap on the ice slide. You must jump a 5 unit gap over the lava!
-      { id: uuidv4(), position: [0, -7, -70], size: [8, 1, 4], type: 'lava', color: '#ef4444' },
-      { id: uuidv4(), position: [0, -7, -76], size: [8, 1, 8], type: 'platform', color: '#94a3b8' },
+      { id: uuidv4(), position: [0, -7, -75], size: [8, 1, 4], type: 'lava', color: '#ff0000' },
+      { id: uuidv4(), position: [0, -7, -81], size: [8, 1, 8], type: 'platform', color: '#ffffff' },
 
       // 5. SHIP FLIGHT SEQUENCE
-      { id: uuidv4(), position: [0, -5, -84], size: [8, 8, 2], type: 'ship-portal', color: '#a855f7' },
-      { id: uuidv4(), position: [0, -20, -120], size: [100, 2, 100], type: 'lava', color: '#ef4444' },
-
-      // MASSIVE BOUNDARY BOX (Prevents flying around the obstacle course)
-      { id: uuidv4(), position: [-25, 5, -120], size: [2, 50, 100], type: 'wall', color: '#ffffff' }, // Left Boundary
-      { id: uuidv4(), position: [25, 5, -120], size: [2, 50, 100], type: 'wall', color: '#ffffff' },  // Right Boundary
-      { id: uuidv4(), position: [0, 30, -120], size: [50, 2, 100], type: 'wall', color: '#ffffff' },  // Ceiling Boundary
+      { id: uuidv4(), position: [0, -5, -89], size: [8, 8, 2], type: 'ship-portal', color: '#ff00ff' },
+      { id: uuidv4(), position: [0, -20, -125], size: [100, 2, 100], type: 'lava', color: '#ff0000' },
+      
+      // MASSIVE BOUNDARY BOX
+      { id: uuidv4(), position: [-25, 5, -125], size: [2, 50, 100], type: 'wall', color: '#ffffff' }, // Left Boundary
+      { id: uuidv4(), position: [25, 5, -125], size: [2, 50, 100], type: 'wall', color: '#ffffff' },  // Right Boundary
+      { id: uuidv4(), position: [0, 30, -125], size: [50, 2, 100], type: 'wall', color: '#ffffff' },  // Ceiling Boundary
       
       // Obstacle Wall 1
-      { id: uuidv4(), position: [-15, 0, -100], size: [20, 30, 2], type: 'wall', color: '#ffffff' },
-      { id: uuidv4(), position: [15, 0, -100], size: [20, 30, 2], type: 'wall', color: '#ffffff' },
-      { id: uuidv4(), position: [0, 10, -100], size: [10, 10, 2], type: 'wall', color: '#ffffff' },
-      { id: uuidv4(), position: [0, -10, -100], size: [10, 10, 2], type: 'wall', color: '#ffffff' },
+      { id: uuidv4(), position: [-15, 0, -105], size: [20, 30, 2], type: 'wall', color: '#ffffff' },
+      { id: uuidv4(), position: [15, 0, -105], size: [20, 30, 2], type: 'wall', color: '#ffffff' },
+      { id: uuidv4(), position: [0, 10, -105], size: [10, 10, 2], type: 'wall', color: '#ffffff' },
+      { id: uuidv4(), position: [0, -10, -105], size: [10, 10, 2], type: 'wall', color: '#ffffff' },
       
       // Obstacle Wall 2
-      { id: uuidv4(), position: [-20, 5, -120], size: [30, 30, 2], type: 'wall', color: '#ffffff' },
-      { id: uuidv4(), position: [20, 5, -120], size: [10, 30, 2], type: 'wall', color: '#ffffff' },
-      { id: uuidv4(), position: [0, 15, -120], size: [10, 10, 2], type: 'wall', color: '#ffffff' },
-      { id: uuidv4(), position: [0, -5, -120], size: [10, 10, 2], type: 'wall', color: '#ffffff' },
+      { id: uuidv4(), position: [-20, 5, -125], size: [30, 30, 2], type: 'wall', color: '#ffffff' },
+      { id: uuidv4(), position: [20, 5, -125], size: [10, 30, 2], type: 'wall', color: '#ffffff' },
+      { id: uuidv4(), position: [0, 15, -125], size: [10, 10, 2], type: 'wall', color: '#ffffff' },
+      { id: uuidv4(), position: [0, -5, -125], size: [10, 10, 2], type: 'wall', color: '#ffffff' },
 
       // Obstacle Wall 3
-      { id: uuidv4(), position: [-15, -5, -140], size: [20, 30, 2], type: 'wall', color: '#ffffff' },
-      { id: uuidv4(), position: [15, -5, -140], size: [20, 30, 2], type: 'wall', color: '#ffffff' },
-      { id: uuidv4(), position: [0, 5, -140], size: [10, 10, 2], type: 'wall', color: '#ffffff' },
-      { id: uuidv4(), position: [0, -15, -140], size: [10, 10, 2], type: 'wall', color: '#ffffff' },
+      { id: uuidv4(), position: [-15, -5, -145], size: [20, 30, 2], type: 'wall', color: '#ffffff' },
+      { id: uuidv4(), position: [15, -5, -145], size: [20, 30, 2], type: 'wall', color: '#ffffff' },
+      { id: uuidv4(), position: [0, 5, -145], size: [10, 10, 2], type: 'wall', color: '#ffffff' },
+      { id: uuidv4(), position: [0, -15, -145], size: [10, 10, 2], type: 'wall', color: '#ffffff' },
 
-      // 6. SPHERE PORTAL & FINISH
-      { id: uuidv4(), position: [0, -5, -160], size: [8, 8, 2], type: 'sphere-portal', color: '#3b82f6' },
-      { id: uuidv4(), position: [0, -7, -165], size: [10, 1, 10], type: 'platform', color: '#94a3b8' },
+      // 6. SPHERE PORTAL
+      { id: uuidv4(), position: [0, -5, -165], size: [8, 8, 2], type: 'sphere-portal', color: '#0000ff' },
+      { id: uuidv4(), position: [0, -7, -170], size: [10, 1, 10], type: 'platform', color: '#ffffff' },
+
+      // CHECKPOINT 3
+      { id: uuidv4(), position: [0, -6.5, -170], size: [10, 0.5, 10], type: 'checkpoint', color: '#00ff88' },
+
+      // 7. ANTI-GRAVITY SECTION
+      // Go upside down!
+      { id: uuidv4(), position: [0, -5, -180], size: [8, 8, 2], type: 'gravity-up-portal', color: '#ffff00' },
       
+      // Upside down ceiling platforms (y = 0 or 2, we must jump UP towards the ceiling)
+      // Since gravity pulls UP (y = 20), we fall to a higher Y value.
+      { id: uuidv4(), position: [0, 5, -190], size: [8, 1, 8], type: 'platform', color: '#ffffff' },
+      
+      // Jump along ceiling
+      { id: uuidv4(), position: [0, 5, -200], size: [6, 1, 6], type: 'platform', color: '#ffffff' },
+      { id: uuidv4(), position: [0, 3, -215], size: [6, 1, 6], type: 'platform', color: '#ffffff' }, // Drop "up" to y=3
+
+      // Return to normal gravity
+      { id: uuidv4(), position: [0, 1, -225], size: [8, 8, 2], type: 'gravity-down-portal', color: '#00ff00' },
+      
+      // Fall down to final platform
+      { id: uuidv4(), position: [0, -15, -235], size: [10, 1, 10], type: 'platform', color: '#ffffff' },
+
       // Final Jump
-      { id: uuidv4(), position: [0, -7, -177], size: [8, 1, 8], type: 'win', color: '#fbbf24' }
+      { id: uuidv4(), position: [0, -15, -247], size: [8, 1, 8], type: 'win', color: '#ffff00' }
     ]
   }
 ];

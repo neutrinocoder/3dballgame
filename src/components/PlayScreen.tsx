@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import { Level } from './Level';
 import { Player } from './Player';
 import { UI } from './UI';
+import { useGameStore } from '../store';
 
 const keyboardMap = [
   { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -15,6 +16,8 @@ const keyboardMap = [
 ];
 
 export function PlayScreen() {
+  const gravityDir = useGameStore(s => s.gravityDirection);
+
   return (
     <>
       <UI />
@@ -27,7 +30,7 @@ export function PlayScreen() {
           />
 
           <Suspense fallback={null}>
-            <Physics gravity={[0, -20, 0]}>
+            <Physics gravity={[0, -20 * gravityDir, 0]}>
               <Level />
               <Player />
             </Physics>

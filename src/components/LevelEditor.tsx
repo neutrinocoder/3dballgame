@@ -10,7 +10,7 @@ function JumpIndicator({ block }: { block: LevelBlock }) {
 
   const isMud = block.type === 'mud';
   const vx = isMud ? 4 : 12;
-  const vy = isMud ? 2.5 : 4.5;
+  const vy = isMud ? 3 : 5.5;
   const g = 20;
   const ballRadius = 0.5;
 
@@ -100,7 +100,7 @@ export function LevelEditor() {
   };
 
   const addBlock = (type: LevelBlock['type']) => {
-    const defaultColor = type === 'lava' ? '#ef4444' : type === 'win' ? '#10b981' : type === 'ice' ? '#67e8f9' : type === 'mud' ? '#78350f' : type === 'ship-portal' ? '#a855f7' : type === 'sphere-portal' ? '#3b82f6' : type === 'wall' ? '#94a3b8' : '#cbd5e1';
+    const defaultColor = type === 'lava' ? '#ff0000' : type === 'win' ? '#ffff00' : type === 'ice' ? '#00ffff' : type === 'mud' ? '#8b4513' : type === 'ship-portal' ? '#ff00ff' : type === 'sphere-portal' ? '#0000ff' : type === 'wall' ? '#ffffff' : type === 'checkpoint' ? '#00ff88' : type === 'gravity-up-portal' ? '#ffff00' : type === 'gravity-down-portal' ? '#00ff00' : '#ffffff';
     const newBlock: LevelBlock = {
       id: uuidv4(),
       position: [0, 0, 0],
@@ -160,7 +160,7 @@ export function LevelEditor() {
 
           {level.blocks.map((block) => {
             const isSelected = selectedBlockId === block.id;
-            const isPortal = block.type === 'ship-portal' || block.type === 'sphere-portal';
+            const isPortal = block.type === 'ship-portal' || block.type === 'sphere-portal' || block.type === 'gravity-up-portal' || block.type === 'gravity-down-portal';
             const meshNode = (
               <mesh 
                 position={isSelected ? [0, 0, 0] : block.position} 
@@ -263,6 +263,9 @@ export function LevelEditor() {
           <button onClick={() => addBlock('sphere-portal')} className="bg-blue-900 hover:bg-blue-800 text-blue-100 px-2 py-2 rounded text-xs font-bold">+ SPHERE PORTAL</button>
           <button onClick={() => addBlock('wall')} className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-2 rounded text-xs font-bold">+ WALL</button>
           <button onClick={() => addBlock('win')} className="bg-emerald-900 hover:bg-emerald-800 text-emerald-100 px-2 py-2 rounded text-xs font-bold">+ WIN PAD</button>
+          <button onClick={() => addBlock('checkpoint')} className="bg-emerald-600 hover:bg-emerald-500 text-white px-2 py-2 rounded text-xs font-bold">+ CHECKPOINT</button>
+          <button onClick={() => addBlock('gravity-up-portal')} className="bg-yellow-500 hover:bg-yellow-400 text-black px-2 py-2 rounded text-xs font-bold">+ GRAV UP</button>
+          <button onClick={() => addBlock('gravity-down-portal')} className="bg-green-500 hover:bg-green-400 text-black px-2 py-2 rounded text-xs font-bold">+ GRAV DOWN</button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-4">

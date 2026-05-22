@@ -6,11 +6,11 @@ export function Home() {
   const setCurrentLevelId = useAppStore(s => s.setCurrentLevelId);
   const customLevels = useAppStore(s => s.customLevels);
   const deleteCustomLevel = useAppStore(s => s.deleteCustomLevel);
-  const resetGame = useGameStore(s => s.resetGame);
+  const fullResetGame = useGameStore(s => s.fullResetGame);
 
   const playLevel = (id: string | null) => {
     setCurrentLevelId(id);
-    resetGame();
+    fullResetGame();
     setView('play');
   };
 
