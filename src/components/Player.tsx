@@ -16,6 +16,7 @@ export function Player() {
   // Camera state
   const euler = useRef(new THREE.Euler(0, 0, 0, 'YXZ'));
   const isPointerLocked = useRef(false);
+  const isClicking = useRef(false);
   const iceContacts = useRef(0);
   const mudContacts = useRef(0);
 
@@ -56,12 +57,24 @@ export function Player() {
       }
     };
 
+    const handlePointerDown = (e: MouseEvent) => {
+      if (e.button === 0 && isPointerLocked.current) isClicking.current = true;
+    };
+
+    const handlePointerUp = (e: MouseEvent) => {
+      if (e.button === 0) isClicking.current = false;
+    };
+
     document.addEventListener('click', handleClick);
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('pointerup', handlePointerUp);
     document.addEventListener('pointerlockchange', handlePointerLockChange);
     document.addEventListener('mousemove', handleMouseMove);
 
     return () => {
       document.removeEventListener('click', handleClick);
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('pointerup', handlePointerUp);
       document.removeEventListener('pointerlockchange', handlePointerLockChange);
       document.removeEventListener('mousemove', handleMouseMove);
       if (document.pointerLockElement) {
@@ -87,7 +100,8 @@ export function Player() {
   useFrame((state, delta) => {
     if (!body.current || status !== 'playing') return;
 
-    const { forward, back, left, right, jump } = getKeys();
+    const { forward, back, left, right, jump: keyboardJump } = getKeys();
+    const jump = keyboardJump || isClicking.current;
     const translation = body.current.translation();
     const linvel = body.current.linvel();
     
