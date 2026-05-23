@@ -9,6 +9,7 @@ export interface LevelBlock {
   size: [number, number, number];
   type: BlockType;
   color: string;
+  texture?: string;
 }
 
 export interface CustomLevel {

@@ -1,5 +1,7 @@
 import { RigidBody, CuboidCollider } from '@react-three/rapier';
-import { useAppStore, useGameStore, LevelBlock } from '../store';
+import { useAppStore, LevelBlock } from '../store';
+import { useGameStore } from '../store';
+import { BlockMaterial } from './BlockMaterial';
 import { Environment, Sky } from '@react-three/drei';
 import { officialLevels } from '../officialLevels';
 import * as THREE from 'three';
@@ -18,9 +20,10 @@ export interface PlatformProps {
   isWall?: boolean;
   isGravityUpPortal?: boolean;
   isGravityDownPortal?: boolean;
+  texture?: string;
 }
 
-export function Platform({ position, size, color = '#ffffff', isLava, isWin, isIce, isMud, isShipPortal, isSpherePortal, isUfoPortal, isWall, isGravityUpPortal, isGravityDownPortal }: PlatformProps) {
+export function Platform({ position, size, color = '#ffffff', isLava, isWin, isIce, isMud, isShipPortal, isSpherePortal, isUfoPortal, isWall, isGravityUpPortal, isGravityDownPortal, texture }: PlatformProps) {
   const addDeath = useGameStore((s) => s.addDeath);
   const setStatus = useGameStore((s) => s.setStatus);
   const stopTimer = useGameStore((s) => s.stopTimer);
@@ -63,17 +66,17 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
       <mesh receiveShadow={!isSensor} castShadow={!isSensor}>
         <boxGeometry args={visualSize} />
         {isLava ? (
-          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.5} />
+          <BlockMaterial texture={texture} size={size} color={color} emissive={color} emissiveIntensity={0.5} />
         ) : isIce ? (
-          <meshStandardMaterial color={color} transparent opacity={0.6} roughness={0.1} />
+          <BlockMaterial texture={texture} size={size} color={color} transparent opacity={0.6} roughness={0.1} />
         ) : isPortal ? (
-          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.8} transparent opacity={0.6} depthWrite={false} side={THREE.DoubleSide} />
+          <BlockMaterial texture={texture} size={size} color={color} emissive={color} emissiveIntensity={0.8} transparent opacity={0.6} depthWrite={false} side={THREE.DoubleSide} />
         ) : isMud ? (
-          <meshStandardMaterial color={color} roughness={1} />
+          <BlockMaterial texture={texture} size={size} color={color} roughness={1} />
         ) : isWall ? (
-          <meshStandardMaterial color={color} transparent opacity={0.5} roughness={0.1} metalness={0.5} />
+          <BlockMaterial texture={texture} size={size} color={color} transparent opacity={0.5} roughness={0.1} metalness={0.5} />
         ) : (
-          <meshStandardMaterial color={color} />
+          <BlockMaterial texture={texture} size={size} color={color} />
         )}
       </mesh>
     </RigidBody>
@@ -111,6 +114,7 @@ export function Level() {
           isWall={block.type === 'wall'}
           isGravityUpPortal={block.type === 'gravity-up-portal'}
           isGravityDownPortal={block.type === 'gravity-down-portal'}
+          texture={block.texture}
         />
       ))}
     </group>
