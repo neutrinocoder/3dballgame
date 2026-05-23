@@ -7,61 +7,61 @@ export const officialLevels: CustomLevel[] = [
     name: 'The Ultimate Showcase',
     blocks: [
       // 1. START AREA
-      { id: uuidv4(), position: [0, -1, 0], size: [10, 1, 10], type: 'platform', color: '#cbd5e1' },
+      { id: uuidv4(), position: [0, -1, 0], size: [10, 1, 10], type: 'platform', color: '#cbd5e1', texture: 'wooden_crate' },
       
       // 2. BASIC JUMPS (Gravity Jump force is 5.5)
-      { id: uuidv4(), position: [0, -1, -12], size: [8, 1, 8], type: 'platform', color: '#cbd5e1' },
-      { id: uuidv4(), position: [0, -3, -25], size: [6, 1, 6], type: 'platform', color: '#cbd5e1' },
+      { id: uuidv4(), position: [0, -1, -12], size: [8, 1, 8], type: 'platform', color: '#cbd5e1', texture: 'rusty_iron' },
+      { id: uuidv4(), position: [0, -3, -25], size: [6, 1, 6], type: 'platform', color: '#cbd5e1', texture: 'wooden_crate' },
 
       // 3. MUD SECTION
-      { id: uuidv4(), position: [0, -5, -35], size: [8, 1, 8], type: 'mud', color: '#78350f' },
-      { id: uuidv4(), position: [0, -5, -43], size: [4, 1, 4], type: 'mud', color: '#78350f' },
-      { id: uuidv4(), position: [0, -5, -50], size: [6, 1, 6], type: 'platform', color: '#cbd5e1' },
+      { id: uuidv4(), position: [0, -5, -35], size: [8, 1, 8], type: 'mud', color: '#78350f', texture: 'dirt' },
+      { id: uuidv4(), position: [0, -5, -43], size: [4, 1, 4], type: 'mud', color: '#78350f', texture: 'dirt' },
+      { id: uuidv4(), position: [0, -5, -50], size: [6, 1, 6], type: 'platform', color: '#cbd5e1', texture: 'grass' },
 
       // 4. ICE SLIDE & LAVA JUMP
-      { id: uuidv4(), position: [0, -7, -65], size: [8, 1, 14], type: 'ice', color: '#67e8f9' },
+      { id: uuidv4(), position: [0, -7, -65], size: [8, 1, 14], type: 'ice', color: '#67e8f9', texture: 'ice' },
       // Lava trap on the ice slide
       { id: uuidv4(), position: [0, -7, -75], size: [8, 1, 4], type: 'lava', color: '#ef4444' },
-      { id: uuidv4(), position: [0, -7, -81], size: [8, 1, 8], type: 'platform', color: '#cbd5e1' },
+      { id: uuidv4(), position: [0, -7, -81], size: [8, 1, 8], type: 'platform', color: '#cbd5e1', texture: 'stone_tile' },
 
       // 5. SHIP FLIGHT SEQUENCE
       { id: uuidv4(), position: [0, -5, -89], size: [8, 8, 2], type: 'ship-portal', color: '#a855f7' },
       { id: uuidv4(), position: [0, -20, -125], size: [100, 2, 100], type: 'lava', color: '#ef4444' },
       
       // MASSIVE BOUNDARY BOX
-      { id: uuidv4(), position: [-25, 5, -125], size: [2, 50, 100], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [25, 5, -125], size: [2, 50, 100], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [0, 30, -125], size: [50, 2, 100], type: 'wall', color: '#94a3b8' },
+      { id: uuidv4(), position: [-25, 5, -125], size: [2, 50, 100], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
+      { id: uuidv4(), position: [25, 5, -125], size: [2, 50, 100], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
+      { id: uuidv4(), position: [0, 30, -125], size: [50, 2, 100], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
       
       // Obstacle Wall 1
-      { id: uuidv4(), position: [-15, 0, -105], size: [20, 30, 2], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [15, 0, -105], size: [20, 30, 2], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [0, 10, -105], size: [10, 10, 2], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [0, -10, -105], size: [10, 10, 2], type: 'wall', color: '#94a3b8' },
+      { id: uuidv4(), position: [-15, 0, -105], size: [20, 30, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
+      { id: uuidv4(), position: [15, 0, -105], size: [20, 30, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
+      { id: uuidv4(), position: [0, 10, -105], size: [10, 10, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
+      { id: uuidv4(), position: [0, -10, -105], size: [10, 10, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
       
       // Obstacle Wall 2
-      { id: uuidv4(), position: [-20, 5, -125], size: [30, 30, 2], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [20, 5, -125], size: [10, 30, 2], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [0, 15, -125], size: [10, 10, 2], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [0, -5, -125], size: [10, 10, 2], type: 'wall', color: '#94a3b8' },
+      { id: uuidv4(), position: [-20, 5, -125], size: [30, 30, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
+      { id: uuidv4(), position: [20, 5, -125], size: [10, 30, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
+      { id: uuidv4(), position: [0, 15, -125], size: [10, 10, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
+      { id: uuidv4(), position: [0, -5, -125], size: [10, 10, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
 
       // Obstacle Wall 3
-      { id: uuidv4(), position: [-15, -5, -145], size: [20, 30, 2], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [15, -5, -145], size: [20, 30, 2], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [0, 5, -145], size: [10, 10, 2], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [0, -15, -145], size: [10, 10, 2], type: 'wall', color: '#94a3b8' },
+      { id: uuidv4(), position: [-15, -5, -145], size: [20, 30, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
+      { id: uuidv4(), position: [15, -5, -145], size: [20, 30, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
+      { id: uuidv4(), position: [0, 5, -145], size: [10, 10, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
+      { id: uuidv4(), position: [0, -15, -145], size: [10, 10, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
 
       // 6. SPHERE PORTAL
       { id: uuidv4(), position: [0, -5, -165], size: [8, 8, 2], type: 'sphere-portal', color: '#3b82f6' },
-      { id: uuidv4(), position: [0, -7, -170], size: [10, 1, 10], type: 'platform', color: '#cbd5e1' },
+      { id: uuidv4(), position: [0, -7, -170], size: [10, 1, 10], type: 'platform', color: '#cbd5e1', texture: 'grass' },
 
       // 7. ANTI-GRAVITY SECTION
       { id: uuidv4(), position: [0, -5, -180], size: [8, 8, 2], type: 'gravity-up-portal', color: '#eab308' },
-      { id: uuidv4(), position: [0, 5, -185], size: [10, 1, 10], type: 'platform', color: '#cbd5e1' },
-      { id: uuidv4(), position: [0, 5, -196], size: [8, 1, 8], type: 'platform', color: '#cbd5e1' },
-      { id: uuidv4(), position: [0, 12, -206], size: [8, 1, 8], type: 'platform', color: '#cbd5e1' }, 
+      { id: uuidv4(), position: [0, 5, -185], size: [10, 1, 10], type: 'platform', color: '#cbd5e1', texture: 'dirt' },
+      { id: uuidv4(), position: [0, 5, -196], size: [8, 1, 8], type: 'platform', color: '#cbd5e1', texture: 'grass' },
+      { id: uuidv4(), position: [0, 12, -206], size: [8, 1, 8], type: 'platform', color: '#cbd5e1', texture: 'stone_tile' }, 
       { id: uuidv4(), position: [0, 10, -216], size: [8, 8, 2], type: 'gravity-down-portal', color: '#22c55e' },
-      { id: uuidv4(), position: [0, -5, -226], size: [10, 1, 15], type: 'platform', color: '#cbd5e1' },
+      { id: uuidv4(), position: [0, -5, -226], size: [10, 1, 15], type: 'platform', color: '#cbd5e1', texture: 'sci_fi_metal' },
 
       // 8. UFO FLAPPY BIRD SECTION
       { id: uuidv4(), position: [0, -3, -240], size: [8, 8, 2], type: 'ufo-portal', color: '#f97316' },
@@ -71,25 +71,25 @@ export const officialLevels: CustomLevel[] = [
 
       // Flappy bird pipes (walls you have to jump through)
       // Pipe 1 (Gap in middle)
-      { id: uuidv4(), position: [0, 10, -255], size: [20, 20, 2], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [0, -20, -255], size: [20, 20, 2], type: 'wall', color: '#94a3b8' },
+      { id: uuidv4(), position: [0, 10, -255], size: [20, 20, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' },
+      { id: uuidv4(), position: [0, -20, -255], size: [20, 20, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' },
 
       // Pipe 2 (Gap up high)
-      { id: uuidv4(), position: [0, 15, -275], size: [20, 10, 2], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [0, -15, -275], size: [20, 30, 2], type: 'wall', color: '#94a3b8' },
+      { id: uuidv4(), position: [0, 15, -275], size: [20, 10, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' },
+      { id: uuidv4(), position: [0, -15, -275], size: [20, 30, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' },
       
       // Pipe 3 (Gap down low)
-      { id: uuidv4(), position: [0, 5, -295], size: [20, 30, 2], type: 'wall', color: '#94a3b8' },
-      { id: uuidv4(), position: [0, -25, -295], size: [20, 10, 2], type: 'wall', color: '#94a3b8' },
+      { id: uuidv4(), position: [0, 5, -295], size: [20, 30, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' },
+      { id: uuidv4(), position: [0, -25, -295], size: [20, 10, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' },
 
       // Return to Sphere
       { id: uuidv4(), position: [0, -3, -315], size: [8, 8, 2], type: 'sphere-portal', color: '#3b82f6' },
       
       // Final platform
-      { id: uuidv4(), position: [0, -5, -325], size: [10, 1, 10], type: 'platform', color: '#cbd5e1' },
+      { id: uuidv4(), position: [0, -5, -325], size: [10, 1, 10], type: 'platform', color: '#cbd5e1', texture: 'sci_fi_metal' },
 
       // Final Jump
-      { id: uuidv4(), position: [0, -5, -337], size: [8, 1, 8], type: 'win', color: '#10b981' }
+      { id: uuidv4(), position: [0, -5, -337], size: [8, 1, 8], type: 'win', color: '#10b981', texture: 'neon_grid' }
     ]
   }
 ];
