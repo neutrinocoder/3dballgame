@@ -113,7 +113,7 @@ export function Player() {
     if (!translation || !linvel || isNaN(translation.y) || isNaN(linvel.y)) return;
 
     // Death by falling out of bounds
-    if (translation.y < -15) {
+    if (translation.y < -40) {
       addDeath();
       return;
     }
