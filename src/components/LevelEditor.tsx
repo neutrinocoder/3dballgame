@@ -173,7 +173,7 @@ export function LevelEditor() {
                 <boxGeometry args={block.size} />
                 {block.type === 'ice' ? (
                   <BlockMaterial 
-                    texture={block.texture}
+                    texture="ice"
                     size={block.size}
                     color={block.color} 
                     transparent 
@@ -181,17 +181,34 @@ export function LevelEditor() {
                     roughness={0.1} 
                     wireframe={isSelected}
                   />
+                ) : block.type === 'mud' ? (
+                  <BlockMaterial 
+                    texture="mud"
+                    size={block.size}
+                    color={block.color} 
+                    roughness={1}
+                    wireframe={isSelected}
+                  />
+                ) : block.type === 'lava' ? (
+                  <BlockMaterial 
+                    texture="lava"
+                    size={block.size}
+                    color={block.color} 
+                    emissive={block.color}
+                    emissiveIntensity={0.5}
+                    wireframe={isSelected}
+                  />
                 ) : (
                   <BlockMaterial 
                     texture={block.texture}
                     size={block.size}
                     color={block.color} 
-                    emissive={block.type === 'lava' || isPortal ? block.color : '#000000'}
-                    emissiveIntensity={block.type === 'lava' ? 0.5 : isPortal ? 0.8 : 0}
+                    emissive={isPortal ? block.color : '#000000'}
+                    emissiveIntensity={isPortal ? 0.8 : 0}
                     wireframe={isSelected}
-                    transparent={isSelected || isPortal}
-                    opacity={isSelected ? 0.8 : isPortal ? 0.6 : 1}
-                    roughness={block.type === 'mud' ? 1 : 1}
+                    transparent={isSelected || isPortal || block.texture === 'glass'}
+                    opacity={isSelected ? 0.8 : isPortal ? 0.6 : block.texture === 'glass' ? 0.4 : 1}
+                    roughness={block.texture === 'glass' ? 0.1 : 1}
                   />
                 )}
                 {isPortal && (
@@ -314,24 +331,26 @@ export function LevelEditor() {
                 />
               </div>
 
-              <div className="space-y-3">
-                <label className="block text-xs font-bold text-slate-400">TEXTURE</label>
-                <select
-                  value={selectedBlock.texture || 'none'}
-                  onChange={(e) => updateBlock(selectedBlock.id, { texture: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-600 rounded px-3 py-2 text-white outline-none focus:border-blue-500"
-                >
-                  <option value="none">None (Solid Color)</option>
-                  <option value="sci_fi_metal">Sci-Fi Metal</option>
-                  <option value="rusty_iron">Rusty Iron</option>
-                  <option value="wooden_crate">Wooden Crate</option>
-                  <option value="neon_grid">Neon Grid</option>
-                  <option value="stone_tile">Stone Tile</option>
-                  <option value="grass">Grass</option>
-                  <option value="dirt">Dirt</option>
-                  <option value="ice">Ice</option>
-                </select>
-              </div>
+              {selectedBlock.type !== 'ice' && selectedBlock.type !== 'mud' && selectedBlock.type !== 'lava' && (
+                <div className="space-y-3">
+                  <label className="block text-xs font-bold text-slate-400">TEXTURE</label>
+                  <select
+                    value={selectedBlock.texture || 'none'}
+                    onChange={(e) => updateBlock(selectedBlock.id, { texture: e.target.value })}
+                    className="w-full bg-slate-900 border border-slate-600 rounded px-3 py-2 text-white outline-none focus:border-blue-500"
+                  >
+                    <option value="none">None (Solid Color)</option>
+                    <option value="sci_fi_metal">Sci-Fi Metal</option>
+                    <option value="rusty_iron">Rusty Iron</option>
+                    <option value="wooden_crate">Wooden Crate</option>
+                    <option value="neon_grid">Neon Grid</option>
+                    <option value="stone_tile">Stone Tile</option>
+                    <option value="grass">Grass</option>
+                    <option value="dirt">Dirt</option>
+                    <option value="glass">Glass</option>
+                  </select>
+                </div>
+              )}
             </div>
           ) : (
             <div className="h-full flex items-center justify-center text-slate-500 text-center">

@@ -29,9 +29,9 @@ export const officialLevels: CustomLevel[] = [
       { id: uuidv4(), position: [0, -20, -125], size: [100, 2, 100], type: 'lava', color: '#ef4444' },
       
       // MASSIVE BOUNDARY BOX
-      { id: uuidv4(), position: [-25, 5, -125], size: [2, 50, 100], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
-      { id: uuidv4(), position: [25, 5, -125], size: [2, 50, 100], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
-      { id: uuidv4(), position: [0, 30, -125], size: [50, 2, 100], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },
+      { id: uuidv4(), position: [-25, 5, -125], size: [2, 50, 100], type: 'wall', color: '#93c5fd', texture: 'glass' },
+      { id: uuidv4(), position: [25, 5, -125], size: [2, 50, 100], type: 'wall', color: '#93c5fd', texture: 'glass' },
+      { id: uuidv4(), position: [0, 30, -125], size: [50, 2, 100], type: 'wall', color: '#93c5fd', texture: 'glass' },
       
       // Obstacle Wall 1
       { id: uuidv4(), position: [-15, 0, -105], size: [20, 30, 2], type: 'wall', color: '#94a3b8', texture: 'stone_tile' },

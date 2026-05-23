@@ -66,17 +66,17 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
       <mesh receiveShadow={!isSensor} castShadow={!isSensor}>
         <boxGeometry args={visualSize} />
         {isLava ? (
-          <BlockMaterial texture={texture} size={size} color={color} emissive={color} emissiveIntensity={0.5} />
+          <BlockMaterial texture="lava" size={size} color={color} emissive={color} emissiveIntensity={0.5} />
         ) : isIce ? (
-          <BlockMaterial texture={texture} size={size} color={color} transparent opacity={0.6} roughness={0.1} />
+          <BlockMaterial texture="ice" size={size} color={color} transparent opacity={0.6} roughness={0.1} />
         ) : isPortal ? (
           <BlockMaterial texture={texture} size={size} color={color} emissive={color} emissiveIntensity={0.8} transparent opacity={0.6} depthWrite={false} side={THREE.DoubleSide} />
         ) : isMud ? (
-          <BlockMaterial texture={texture} size={size} color={color} roughness={1} />
+          <BlockMaterial texture="mud" size={size} color={color} roughness={1} />
         ) : isWall ? (
-          <BlockMaterial texture={texture} size={size} color={color} transparent opacity={0.5} roughness={0.1} metalness={0.5} />
+          <BlockMaterial texture={texture} size={size} color={color} transparent={texture === 'glass'} opacity={texture === 'glass' ? 0.4 : 1} roughness={texture === 'glass' ? 0.1 : 1} />
         ) : (
-          <BlockMaterial texture={texture} size={size} color={color} />
+          <BlockMaterial texture={texture} size={size} color={color} transparent={texture === 'glass'} opacity={texture === 'glass' ? 0.4 : 1} roughness={texture === 'glass' ? 0.1 : 1} />
         )}
       </mesh>
     </RigidBody>
