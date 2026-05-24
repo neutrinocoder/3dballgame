@@ -5,6 +5,7 @@ export const officialLevels: CustomLevel[] = [
   {
     id: 'showcase-level',
     name: 'The Ultimate Showcase',
+    backgroundTheme: 'glow',
     blocks: [
       // 1. START AREA
       { id: uuidv4(), position: [0, -1, 0], size: [10, 1, 10], type: 'platform', color: '#cbd5e1', texture: 'wooden_crate' },

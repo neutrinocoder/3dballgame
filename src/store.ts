@@ -3,6 +3,8 @@ import { persist } from 'zustand/middleware';
 
 export type BlockType = 'platform' | 'lava' | 'win' | 'ice' | 'mud' | 'ship-portal' | 'sphere-portal' | 'ufo-portal' | 'wall' | 'gravity-up-portal' | 'gravity-down-portal';
 
+export type BackgroundTheme = 'sunny' | 'neon' | 'dark' | 'glow' | 'space';
+
 export interface LevelBlock {
   id: string;
   position: [number, number, number];
@@ -15,6 +17,7 @@ export interface LevelBlock {
 export interface CustomLevel {
   id: string;
   name: string;
+  backgroundTheme?: BackgroundTheme;
   blocks: LevelBlock[];
 }
 

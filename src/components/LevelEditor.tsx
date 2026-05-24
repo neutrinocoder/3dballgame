@@ -2,10 +2,11 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, Sky, Grid, TransformControls, Line, Stars, Sparkles } from '@react-three/drei';
 import { useState, useEffect, Suspense } from 'react';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import { CustomLevel, LevelBlock, useAppStore } from '../store';
+import { CustomLevel, LevelBlock, useAppStore, BackgroundTheme } from '../store';
 import { v4 as uuidv4 } from 'uuid';
 import * as THREE from 'three';
 import { BlockMaterial } from './BlockMaterial';
+import { Background } from './Background';
 
 function JumpIndicator({ block }: { block: LevelBlock }) {
   if (block.type !== 'platform' && block.type !== 'ice' && block.type !== 'mud') return null;
@@ -155,14 +156,7 @@ export function LevelEditor() {
       {/* 3D Canvas View */}
       <div className="flex-1 relative bg-[#0f0728]">
         <Canvas camera={{ position: [0, 15, 25], fov: 60 }}>
-          <color attach="background" args={['#0f0728']} />
-          <fog attach="fog" args={['#0f0728', 20, 150]} />
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 20, 10]} intensity={1.5} />
-          
-          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-          <Sparkles count={200} scale={100} size={2} speed={0.4} opacity={0.3} color="#a855f7" />
-          <Environment preset="night" />
+          <Background theme={level.backgroundTheme || 'glow'} />
           <Suspense fallback={null}>
             <Grid infiniteGrid fadeDistance={50} sectionColor="#475569" cellColor="#334155" />
           {level.blocks.map((block) => {
@@ -252,10 +246,6 @@ export function LevelEditor() {
           })}
           <OrbitControls makeDefault />
           </Suspense>
-          {/* Effect Composer for Bloom */}
-          <EffectComposer disableNormalPass>
-            <Bloom luminanceThreshold={1} mipmapBlur intensity={1.5} />
-          </EffectComposer>
         </Canvas>
         
         {/* Editor Controls Overlay */}
@@ -284,6 +274,21 @@ export function LevelEditor() {
             onChange={(e) => setLevel(prev => ({ ...prev, name: e.target.value }))}
             className="w-full bg-slate-900 border border-slate-600 rounded px-3 py-2 text-white outline-none focus:border-blue-500"
           />
+        </div>
+
+        <div className="p-4 border-b border-slate-700">
+          <label className="block text-xs text-slate-400 mb-1">BACKGROUND THEME</label>
+          <select 
+            value={level.backgroundTheme || 'glow'}
+            onChange={(e) => setLevel(prev => ({ ...prev, backgroundTheme: e.target.value as BackgroundTheme }))}
+            className="w-full bg-slate-900 border border-slate-600 rounded px-3 py-2 text-white outline-none focus:border-blue-500"
+          >
+            <option value="sunny">Sunny (Clear Sky)</option>
+            <option value="neon">Neon Synthwave</option>
+            <option value="dark">Dark & Minimal</option>
+            <option value="glow">Glow (Purple Space)</option>
+            <option value="space">Deep Space</option>
+          </select>
         </div>
 
         <div className="p-4 border-b border-slate-700 grid grid-cols-2 gap-2">
