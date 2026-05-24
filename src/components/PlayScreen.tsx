@@ -43,7 +43,7 @@ export function PlayScreen() {
               <Player />
             </Physics>
             <EffectComposer disableNormalPass>
-              <Bloom luminanceThreshold={0.5} mipmapBlur intensity={1.5} />
+              <Bloom luminanceThreshold={1} mipmapBlur intensity={1.5} />
             </EffectComposer>
           </Suspense>
         </Canvas>

@@ -201,7 +201,7 @@ export function LevelEditor() {
                     size={block.size}
                     color={block.color} 
                     emissive={block.color}
-                    emissiveIntensity={0.5}
+                    emissiveIntensity={2.5}
                     wireframe={isSelected}
                   />
                 ) : (
@@ -210,7 +210,7 @@ export function LevelEditor() {
                     size={block.size}
                     color={block.color} 
                     emissive={isPortal ? block.color : '#000000'}
-                    emissiveIntensity={isPortal ? 0.8 : 0}
+                    emissiveIntensity={isPortal ? 2.5 : 0}
                     wireframe={isSelected}
                     transparent={isSelected || isPortal || block.texture === 'glass'}
                     opacity={isSelected ? 0.8 : isPortal ? 0.6 : block.texture === 'glass' ? 0.4 : 1}
@@ -254,7 +254,7 @@ export function LevelEditor() {
           </Suspense>
           {/* Effect Composer for Bloom */}
           <EffectComposer disableNormalPass>
-            <Bloom luminanceThreshold={0.5} mipmapBlur intensity={1.5} />
+            <Bloom luminanceThreshold={1} mipmapBlur intensity={1.5} />
           </EffectComposer>
         </Canvas>
         

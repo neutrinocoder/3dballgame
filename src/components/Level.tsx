@@ -66,11 +66,11 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
       <mesh receiveShadow={!isSensor} castShadow={!isSensor}>
         <boxGeometry args={visualSize} />
         {isLava ? (
-          <BlockMaterial texture="lava" size={size} color={color} emissive={color} emissiveIntensity={0.5} />
+          <BlockMaterial texture="lava" size={size} color={color} emissive={color} emissiveIntensity={2.5} />
         ) : isIce ? (
           <BlockMaterial texture="ice" size={size} color={color} transparent opacity={0.6} roughness={0.1} />
         ) : isPortal ? (
-          <BlockMaterial texture={texture} size={size} color={color} emissive={color} emissiveIntensity={0.8} transparent opacity={0.6} depthWrite={false} side={THREE.DoubleSide} />
+          <BlockMaterial texture={texture} size={size} color={color} emissive={color} emissiveIntensity={2.5} transparent opacity={0.6} depthWrite={false} side={THREE.DoubleSide} />
         ) : isMud ? (
           <BlockMaterial texture="dirt" size={size} color={color} roughness={1} />
         ) : isWall ? (
