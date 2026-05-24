@@ -183,7 +183,7 @@ export function LevelEditor() {
                   />
                 ) : block.type === 'mud' ? (
                   <BlockMaterial 
-                    texture="mud"
+                    texture="dirt"
                     size={block.size}
                     color={block.color} 
                     roughness={1}

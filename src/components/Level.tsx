@@ -72,7 +72,7 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
         ) : isPortal ? (
           <BlockMaterial texture={texture} size={size} color={color} emissive={color} emissiveIntensity={0.8} transparent opacity={0.6} depthWrite={false} side={THREE.DoubleSide} />
         ) : isMud ? (
-          <BlockMaterial texture="mud" size={size} color={color} roughness={1} />
+          <BlockMaterial texture="dirt" size={size} color={color} roughness={1} />
         ) : isWall ? (
           <BlockMaterial texture={texture} size={size} color={color} transparent={texture === 'glass'} opacity={texture === 'glass' ? 0.4 : 1} roughness={texture === 'glass' ? 0.1 : 1} />
         ) : (
