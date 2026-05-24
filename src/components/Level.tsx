@@ -96,8 +96,6 @@ export function Level() {
 
   return (
     <group>
-      <Sky sunPosition={[100, 20, 100]} />
-      
       {blocks.map((block) => (
         <Platform 
           key={block.id}
