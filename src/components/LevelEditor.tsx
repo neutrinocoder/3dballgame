@@ -1,6 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, Sky, Grid, TransformControls, Line, Stars, Sparkles } from '@react-three/drei';
 import { useState, useEffect, Suspense } from 'react';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { CustomLevel, LevelBlock, useAppStore } from '../store';
 import { v4 as uuidv4 } from 'uuid';
 import * as THREE from 'three';
@@ -251,6 +252,10 @@ export function LevelEditor() {
           })}
           <OrbitControls makeDefault />
           </Suspense>
+          {/* Effect Composer for Bloom */}
+          <EffectComposer disableNormalPass>
+            <Bloom luminanceThreshold={0.5} mipmapBlur intensity={1.5} />
+          </EffectComposer>
         </Canvas>
         
         {/* Editor Controls Overlay */}

@@ -2,6 +2,7 @@ import { KeyboardControls, Stars, Sparkles, Environment } from '@react-three/dre
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import { Suspense } from 'react';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Level } from './Level';
 import { Player } from './Player';
 import { UI } from './UI';
@@ -41,6 +42,9 @@ export function PlayScreen() {
               <Level />
               <Player />
             </Physics>
+            <EffectComposer disableNormalPass>
+              <Bloom luminanceThreshold={0.5} mipmapBlur intensity={1.5} />
+            </EffectComposer>
           </Suspense>
         </Canvas>
       </KeyboardControls>
