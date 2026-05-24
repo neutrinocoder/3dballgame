@@ -204,7 +204,7 @@ export function Player() {
       if (mudContacts.current > 0) {
         currentSpeed = 4; // slow movement
         lerpFactor = Math.min(15 * delta, 1); // high friction in mud, stops quickly
-        jumpForce = 2 * gravityDir; // hard to jump
+        jumpForce = 1.2 * gravityDir; // hard to jump
         linvel.y = gravityDir === 1 ? Math.min(linvel.y, 0) : Math.max(linvel.y, 0); // kill bounce
       } else if (iceContacts.current > 0) {
         lerpFactor = Math.min(1 * delta, 1); // low friction, slide easily with lots of momentum
