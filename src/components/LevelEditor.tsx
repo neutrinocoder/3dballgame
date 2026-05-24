@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, Sky, Grid, TransformControls, Line } from '@react-three/drei';
+import { OrbitControls, Environment, Sky, Grid, TransformControls, Line, Stars, Sparkles } from '@react-three/drei';
 import { useState, useEffect, Suspense } from 'react';
 import { CustomLevel, LevelBlock, useAppStore } from '../store';
 import { v4 as uuidv4 } from 'uuid';
@@ -152,13 +152,18 @@ export function LevelEditor() {
   return (
     <div className="flex w-full h-screen bg-slate-900 overflow-hidden text-sm">
       {/* 3D Canvas View */}
-      <div className="flex-1 relative">
-        <Canvas camera={{ position: [0, 10, 20], fov: 60 }}>
+      <div className="flex-1 relative bg-[#0f0728]">
+        <Canvas camera={{ position: [0, 15, 25], fov: 60 }}>
+          <color attach="background" args={['#0f0728']} />
+          <fog attach="fog" args={['#0f0728', 20, 150]} />
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 20, 10]} intensity={1.5} />
+          
+          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+          <Sparkles count={200} scale={100} size={2} speed={0.4} opacity={0.3} color="#a855f7" />
+          <Environment preset="night" />
           <Suspense fallback={null}>
-            <Sky sunPosition={[100, 20, 100]} />
             <Grid infiniteGrid fadeDistance={50} sectionColor="#475569" cellColor="#334155" />
-            <ambientLight intensity={0.8} />
-
           {level.blocks.map((block) => {
             const isSelected = selectedBlockId === block.id;
             const isPortal = block.type === 'ship-portal' || block.type === 'sphere-portal' || block.type === 'gravity-up-portal' || block.type === 'gravity-down-portal';
