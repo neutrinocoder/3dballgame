@@ -34,7 +34,7 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
   const isShapePortal = isShipPortal || isSpherePortal || isUfoPortal;
   const isPortal = isShapePortal || isGravityPortal;
   const isSensor = isPortal;
-  const colliderSize = size;
+  const colliderSize = isShapePortal ? [400, 400, size[2]] : size;
   const visualSize = size;
 
   return (
