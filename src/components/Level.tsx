@@ -96,7 +96,7 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
         ) : isMud ? (
           <BlockMaterial texture="dirt" size={size} color={color} roughness={1} />
         ) : isTrampoline ? (
-          <BlockMaterial texture={texture || "diamond"} size={size} color={color} emissive={color} emissiveIntensity={0.5} roughness={0.3} />
+          <BlockMaterial texture={texture || "neon_grid"} size={size} color={color} emissive={color} emissiveIntensity={0.5} roughness={0.3} />
         ) : isWall ? (
           <BlockMaterial texture={texture} size={size} color={color} transparent={texture === 'glass'} opacity={texture === 'glass' ? 0.4 : 1} roughness={texture === 'glass' ? 0.1 : 1} />
         ) : (
