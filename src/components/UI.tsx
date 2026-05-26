@@ -1,4 +1,5 @@
 import { useAppStore, useGameStore } from '../store';
+import { useEffect } from 'react';
 
 export function UI() {
   const status = useGameStore((s) => s.status);
@@ -15,13 +16,25 @@ export function UI() {
     setView('home');
   };
 
+
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() === 'r') {
+        resetGame();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [resetGame]);
+
   return (
     <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-6 z-10">
       <div className="flex justify-between items-start text-white mix-blend-difference drop-shadow-md">
         <div>
           <h1 className="text-3xl font-bold font-mono tracking-wider">OBBY RUN</h1>
           <p className="font-mono text-sm mt-1 opacity-80 uppercase tracking-widest">
-            WASD: Move / Space: Jump
+            WASD: Move / Space: Jump / R: Restart
           </p>
           <button 
             onClick={handleMenu}
