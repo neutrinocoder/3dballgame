@@ -43,12 +43,19 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
       colliders={false}
       position={position}
       userData={{ isIce, isMud }}
-      onIntersectionEnter={() => {
+      onIntersectionEnter={(payload) => {
         if (isShipPortal) setPlayerShape('ship');
         else if (isSpherePortal) setPlayerShape('sphere');
         else if (isUfoPortal) setPlayerShape('ufo');
-        else if (isGravityUpPortal) setGravityDirection(-1);
-        else if (isGravityDownPortal) setGravityDirection(1);
+        else if (isGravityUpPortal || isGravityDownPortal) {
+          const rb = payload.other.rigidBody;
+          if (rb) {
+            const linvel = rb.linvel();
+            rb.setLinvel({ x: linvel.x, y: 0, z: linvel.z }, true);
+          }
+          if (isGravityUpPortal) setGravityDirection(-1);
+          if (isGravityDownPortal) setGravityDirection(1);
+        }
       }}
       onCollisionEnter={() => {
         const currentShape = useGameStore.getState().playerShape;

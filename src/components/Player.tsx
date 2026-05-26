@@ -101,15 +101,6 @@ export function Player() {
     }
   }, [status]);
 
-  // Reduce vertical arc when hitting a gravity portal
-  useEffect(() => {
-    if (body.current) {
-      const linvel = body.current.linvel();
-      // Dampen vertical velocity so gravity takes over immediately, creating a snappier arc
-      body.current.setLinvel({ x: linvel.x, y: linvel.y * 0.1, z: linvel.z }, true);
-    }
-  }, [gravityDir]);
-
   useFrame((state, delta) => {
     if (!body.current || status !== 'playing') return;
 
