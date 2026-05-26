@@ -103,10 +103,48 @@ export const officialLevels: CustomLevel[] = [
       { id: uuidv4(), position: [0, 5, -375], size: [20, 10, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
       { id: uuidv4(), position: [0, 15, -385], size: [20, 10, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
       
-      // Return to Sphere and Win
-      { id: uuidv4(), position: [0, 10, -400], size: [8, 8, 2], type: 'sphere-portal', color: '#3b82f6' },
-      { id: uuidv4(), position: [0, 8, -410], size: [10, 1, 10], type: 'platform', color: '#cbd5e1', texture: 'sci_fi_metal' },
-      { id: uuidv4(), position: [0, 8, -425], size: [8, 1, 8], type: 'win', color: '#10b981', texture: 'neon_grid' }
+      // 11. ANTI-GRAVITY WAVE
+      { id: uuidv4(), position: [0, 10, -395], size: [8, 8, 2], type: 'gravity-up-portal', color: '#eab308' },
+      
+      // Upside down wave corridor
+      { id: uuidv4(), position: [0, -10, -425], size: [100, 2, 50], type: 'lava', color: '#ef4444' },
+      { id: uuidv4(), position: [0, 30, -425], size: [100, 2, 50], type: 'lava', color: '#ef4444' },
+      
+      { id: uuidv4(), position: [0, 20, -410], size: [20, 15, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 0, -420], size: [20, 15, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 20, -430], size: [20, 15, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 0, -440], size: [20, 15, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+
+      // Normal gravity + Ship transition
+      { id: uuidv4(), position: [0, 10, -450], size: [8, 8, 2], type: 'gravity-down-portal', color: '#22c55e' },
+      { id: uuidv4(), position: [0, 10, -455], size: [8, 8, 2], type: 'ship-portal', color: '#a855f7' },
+      
+      // 12. SHIP TIGHT PASSAGE
+      { id: uuidv4(), position: [0, -10, -490], size: [100, 2, 80], type: 'lava', color: '#ef4444' },
+      { id: uuidv4(), position: [0, 30, -490], size: [100, 2, 80], type: 'lava', color: '#ef4444' },
+      
+      { id: uuidv4(), position: [0, 15, -470], size: [30, 20, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' }, // Top block
+      { id: uuidv4(), position: [0, -5, -470], size: [30, 20, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' }, // Bottom block
+      
+      { id: uuidv4(), position: [0, 25, -485], size: [30, 20, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' }, 
+      { id: uuidv4(), position: [0, 0, -485], size: [30, 20, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' }, 
+
+      { id: uuidv4(), position: [0, 10, -500], size: [30, 20, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' }, 
+      { id: uuidv4(), position: [0, -10, -500], size: [30, 20, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' }, 
+
+      // 13. SPHERE TRAMPOLINE CHAIN
+      { id: uuidv4(), position: [0, 10, -520], size: [8, 8, 2], type: 'sphere-portal', color: '#3b82f6' },
+      
+      { id: uuidv4(), position: [0, 0, -535], size: [4, 1, 4], type: 'trampoline', color: '#84cc16' },
+      { id: uuidv4(), position: [0, 20, -555], size: [4, 1, 4], type: 'trampoline', color: '#84cc16' },
+      { id: uuidv4(), position: [0, 40, -575], size: [4, 1, 4], type: 'trampoline', color: '#84cc16' },
+      
+      // Bottomless pit of lava below the trampolines
+      { id: uuidv4(), position: [0, -20, -555], size: [30, 2, 80], type: 'lava', color: '#ef4444' },
+
+      // Final Win Platform
+      { id: uuidv4(), position: [0, 50, -595], size: [10, 1, 10], type: 'platform', color: '#cbd5e1', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 50, -605], size: [8, 1, 8], type: 'win', color: '#10b981', texture: 'neon_grid' }
     ]
   }
 ,
