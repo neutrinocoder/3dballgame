@@ -149,7 +149,11 @@ export function Player() {
       let targetY = linvel.y;
       if (jump) {
         // Geometry Dash style ship thrust
-        targetY = Math.min(linvel.y + 40 * delta, 12);
+        if (gravityDir === 1) {
+          targetY = Math.min(linvel.y + 40 * delta, 12);
+        } else {
+          targetY = Math.max(linvel.y - 40 * delta, -12);
+        }
       }
 
       const shipSpeed = 10;
