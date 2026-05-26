@@ -51,7 +51,11 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
           const rb = payload.other.rigidBody;
           if (rb) {
             const linvel = rb.linvel();
-            rb.setLinvel({ x: linvel.x, y: 0, z: linvel.z }, true);
+            if (isGravityUpPortal && linvel.y < 0) {
+              rb.setLinvel({ x: linvel.x, y: 0, z: linvel.z }, true);
+            } else if (isGravityDownPortal && linvel.y > 0) {
+              rb.setLinvel({ x: linvel.x, y: 0, z: linvel.z }, true);
+            }
           }
           if (isGravityUpPortal) setGravityDirection(-1);
           if (isGravityDownPortal) setGravityDirection(1);
