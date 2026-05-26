@@ -86,11 +86,27 @@ export const officialLevels: CustomLevel[] = [
       // Return to Sphere
       { id: uuidv4(), position: [0, -3, -315], size: [8, 8, 2], type: 'sphere-portal', color: '#3b82f6' },
       
-      // Final platform
+      // 9. TRAMPOLINE JUMP
       { id: uuidv4(), position: [0, -5, -325], size: [10, 1, 10], type: 'platform', color: '#cbd5e1', texture: 'sci_fi_metal' },
-
-      // Final Jump
-      { id: uuidv4(), position: [0, -5, -337], size: [8, 1, 8], type: 'win', color: '#10b981', texture: 'neon_grid' }
+      { id: uuidv4(), position: [0, -5, -337], size: [4, 1, 4], type: 'trampoline', color: '#84cc16' },
+      
+      // The trampoline bounces you HIGH up, then you enter a Wave portal mid-air!
+      { id: uuidv4(), position: [0, 10, -345], size: [8, 8, 2], type: 'wave-portal', color: '#06b6d4' },
+      
+      // 10. WAVE CORRIDOR
+      { id: uuidv4(), position: [0, -10, -370], size: [100, 2, 60], type: 'lava', color: '#ef4444' }, // Lava floor
+      { id: uuidv4(), position: [0, 30, -370], size: [100, 2, 60], type: 'lava', color: '#ef4444' },  // Lava ceiling
+      
+      // Wave Obstacles
+      { id: uuidv4(), position: [0, -5, -355], size: [20, 10, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 25, -365], size: [20, 10, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 5, -375], size: [20, 10, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 15, -385], size: [20, 10, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+      
+      // Return to Sphere and Win
+      { id: uuidv4(), position: [0, 10, -400], size: [8, 8, 2], type: 'sphere-portal', color: '#3b82f6' },
+      { id: uuidv4(), position: [0, 8, -410], size: [10, 1, 10], type: 'platform', color: '#cbd5e1', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 8, -425], size: [8, 1, 8], type: 'win', color: '#10b981', texture: 'neon_grid' }
     ]
   }
 ,
