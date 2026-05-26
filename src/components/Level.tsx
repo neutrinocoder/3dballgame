@@ -14,16 +14,18 @@ export interface PlatformProps {
   isWin?: boolean;
   isIce?: boolean;
   isMud?: boolean;
+  isTrampoline?: boolean;
   isShipPortal?: boolean;
   isSpherePortal?: boolean;
   isUfoPortal?: boolean;
+  isWavePortal?: boolean;
   isWall?: boolean;
   isGravityUpPortal?: boolean;
   isGravityDownPortal?: boolean;
   texture?: string;
 }
 
-export function Platform({ position, size, color = '#ffffff', isLava, isWin, isIce, isMud, isShipPortal, isSpherePortal, isUfoPortal, isWall, isGravityUpPortal, isGravityDownPortal, texture }: PlatformProps) {
+export function Platform({ position, size, color = '#ffffff', isLava, isWin, isIce, isMud, isTrampoline, isShipPortal, isSpherePortal, isUfoPortal, isWavePortal, isWall, isGravityUpPortal, isGravityDownPortal, texture }: PlatformProps) {
   const addDeath = useGameStore((s) => s.addDeath);
   const setStatus = useGameStore((s) => s.setStatus);
   const stopTimer = useGameStore((s) => s.stopTimer);
@@ -31,7 +33,7 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
   const setGravityDirection = useGameStore((s) => s.setGravityDirection);
 
   const isGravityPortal = isGravityUpPortal || isGravityDownPortal;
-  const isShapePortal = isShipPortal || isSpherePortal || isUfoPortal;
+  const isShapePortal = isShipPortal || isSpherePortal || isUfoPortal || isWavePortal;
   const isPortal = isShapePortal || isGravityPortal;
   const isSensor = isPortal;
   const colliderSize = isShapePortal ? [400, 400, size[2]] : size;
@@ -47,6 +49,7 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
         if (isShipPortal) setPlayerShape('ship');
         else if (isSpherePortal) setPlayerShape('sphere');
         else if (isUfoPortal) setPlayerShape('ufo');
+        else if (isWavePortal) setPlayerShape('wave');
         else if (isGravityUpPortal || isGravityDownPortal) {
           const rb = payload.other.rigidBody;
           if (rb) {
@@ -61,7 +64,7 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
           if (isGravityDownPortal) setGravityDirection(1);
         }
       }}
-      onCollisionEnter={() => {
+      onCollisionEnter={(payload) => {
         const currentShape = useGameStore.getState().playerShape;
         if (isWin) {
           setStatus('won');
@@ -70,6 +73,14 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
           addDeath();
         } else if (!isSensor && currentShape === 'ship') {
           addDeath(); // Ship dies on any solid block
+        }
+        
+        if (isTrampoline) {
+          const rb = payload.other.rigidBody;
+          if (rb) {
+            const linvel = rb.linvel();
+            rb.setLinvel({ x: linvel.x, y: 22 * useGameStore.getState().gravityDirection, z: linvel.z }, true);
+          }
         }
       }}
     >
@@ -84,6 +95,8 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
           <BlockMaterial texture={texture} size={size} color={color} emissive={color} emissiveIntensity={2.5} transparent opacity={0.6} depthWrite={false} side={THREE.DoubleSide} />
         ) : isMud ? (
           <BlockMaterial texture="dirt" size={size} color={color} roughness={1} />
+        ) : isTrampoline ? (
+          <BlockMaterial texture={texture || "diamond"} size={size} color={color} emissive={color} emissiveIntensity={0.5} roughness={0.3} />
         ) : isWall ? (
           <BlockMaterial texture={texture} size={size} color={color} transparent={texture === 'glass'} opacity={texture === 'glass' ? 0.4 : 1} roughness={texture === 'glass' ? 0.1 : 1} />
         ) : (
@@ -120,9 +133,11 @@ export function Level() {
           isShipPortal={block.type === 'ship-portal'}
           isSpherePortal={block.type === 'sphere-portal'}
           isUfoPortal={block.type === 'ufo-portal'}
+          isWavePortal={block.type === 'wave-portal'}
           isWall={block.type === 'wall'}
           isGravityUpPortal={block.type === 'gravity-up-portal'}
           isGravityDownPortal={block.type === 'gravity-down-portal'}
+          isTrampoline={block.type === 'trampoline'}
           texture={block.texture}
         />
       ))}

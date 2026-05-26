@@ -190,6 +190,31 @@ export function Player() {
         thrusterRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), Math.min(20 * delta, 1));
         thrusterRef.current.rotation.y += 20 * delta; // flicker effect
       }
+    } else if (playerShape === 'wave') {
+      const waveSpeed = 15;
+      const waveY = (jump ? 15 : -15) * gravityDir;
+      
+      const targetVelocity = direction.multiplyScalar(waveSpeed);
+      
+      body.current.setLinvel({
+        x: THREE.MathUtils.lerp(linvel.x, targetVelocity.x, Math.min(15 * delta, 1)),
+        y: THREE.MathUtils.lerp(linvel.y, waveY, Math.min(25 * delta, 1)),
+        z: THREE.MathUtils.lerp(linvel.z, targetVelocity.z, Math.min(15 * delta, 1))
+      }, true);
+      
+      if (meshRef.current) {
+        if (inputVector.lengthSq() > 0) {
+          const targetAngle = Math.atan2(direction.x, direction.z);
+          let diff = targetAngle - (meshRef.current.rotation.y % (Math.PI * 2));
+          while (diff < -Math.PI) diff += Math.PI * 2;
+          while (diff > Math.PI) diff -= Math.PI * 2;
+          meshRef.current.rotation.y += diff * Math.min(10 * delta, 1);
+        }
+        
+        const pitchAngle = jump ? -Math.PI / 4 : Math.PI / 4;
+        meshRef.current.rotation.x = THREE.MathUtils.lerp(meshRef.current.rotation.x, pitchAngle * gravityDir, Math.min(20 * delta, 1));
+        meshRef.current.rotation.z = THREE.MathUtils.lerp(meshRef.current.rotation.z, gravityDir === -1 ? Math.PI : 0, Math.min(10 * delta, 1));
+      }
     } else {
       // Jump Raycast Implementation (Moved up to use for air momentum)
       const rayOrigin = new THREE.Vector3(translation.x, translation.y - (0.51 * gravityDir), translation.z);
@@ -277,7 +302,7 @@ export function Player() {
         if (other.rigidBodyObject?.userData?.isMud) mudContacts.current = Math.max(0, mudContacts.current - 1);
       }}
     >
-      {playerShape === 'ship' || playerShape === 'ufo' ? (
+      {playerShape === 'ship' || playerShape === 'ufo' || playerShape === 'wave' ? (
         <CuboidCollider args={[0.4, 0.4, 0.4]} />
       ) : (
         <BallCollider args={[0.5]} />
@@ -307,6 +332,11 @@ export function Player() {
               <meshStandardMaterial color="#fb923c" emissive="#ea580c" emissiveIntensity={2} transparent opacity={0.8} />
             </mesh>
           </group>
+        ) : playerShape === 'wave' ? (
+          <mesh castShadow position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+            <coneGeometry args={[0.5, 1.5, 3]} />
+            <meshStandardMaterial color="#06b6d4" />
+          </mesh>
         ) : playerShape === 'ufo' ? (
           <mesh castShadow receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
             <coneGeometry args={[0.5, 1.5, 16]} />

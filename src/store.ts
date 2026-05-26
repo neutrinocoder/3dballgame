@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type BlockType = 'platform' | 'lava' | 'win' | 'ice' | 'mud' | 'ship-portal' | 'sphere-portal' | 'ufo-portal' | 'wall' | 'gravity-up-portal' | 'gravity-down-portal';
+export type BlockType = 'platform' | 'lava' | 'win' | 'ice' | 'mud' | 'trampoline' | 'ship-portal' | 'sphere-portal' | 'ufo-portal' | 'wave-portal' | 'wall' | 'gravity-up-portal' | 'gravity-down-portal';
 
 export type BackgroundTheme = 'sunny' | 'neon' | 'dark' | 'glow' | 'space';
 
@@ -59,8 +59,8 @@ export const useAppStore = create<AppState>()(
 interface GameState {
   status: 'playing' | 'dead' | 'won';
   setStatus: (status: 'playing' | 'dead' | 'won') => void;
-  playerShape: 'sphere' | 'ship' | 'ufo';
-  setPlayerShape: (shape: 'sphere' | 'ship' | 'ufo') => void;
+  playerShape: 'sphere' | 'ship' | 'ufo' | 'wave';
+  setPlayerShape: (shape: 'sphere' | 'ship' | 'ufo' | 'wave') => void;
   deaths: number;
   addDeath: () => void;
   startTime: number;

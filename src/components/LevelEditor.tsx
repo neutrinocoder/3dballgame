@@ -103,7 +103,7 @@ export function LevelEditor() {
   };
 
   const addBlock = (type: LevelBlock['type']) => {
-    const defaultColor = type === 'lava' ? '#ef4444' : type === 'win' ? '#10b981' : type === 'ice' ? '#67e8f9' : type === 'mud' ? '#78350f' : type === 'ship-portal' ? '#a855f7' : type === 'sphere-portal' ? '#3b82f6' : type === 'ufo-portal' ? '#f97316' : type === 'wall' ? '#94a3b8' : type === 'gravity-up-portal' ? '#eab308' : type === 'gravity-down-portal' ? '#22c55e' : '#cbd5e1';
+    const defaultColor = type === 'lava' ? '#ef4444' : type === 'win' ? '#10b981' : type === 'ice' ? '#67e8f9' : type === 'mud' ? '#78350f' : type === 'trampoline' ? '#84cc16' : type === 'ship-portal' ? '#a855f7' : type === 'sphere-portal' ? '#3b82f6' : type === 'ufo-portal' ? '#f97316' : type === 'wave-portal' ? '#06b6d4' : type === 'wall' ? '#94a3b8' : type === 'gravity-up-portal' ? '#eab308' : type === 'gravity-down-portal' ? '#22c55e' : '#cbd5e1';
     const newBlock: LevelBlock = {
       id: uuidv4(),
       position: [0, 0, 0],
@@ -299,6 +299,8 @@ export function LevelEditor() {
           <button onClick={() => addBlock('ship-portal')} className="bg-purple-900 hover:bg-purple-800 text-purple-100 px-2 py-2 rounded text-xs font-bold">+ SHIP</button>
           <button onClick={() => addBlock('sphere-portal')} className="bg-blue-900 hover:bg-blue-800 text-blue-100 px-2 py-2 rounded text-xs font-bold">+ SPHERE</button>
           <button onClick={() => addBlock('ufo-portal')} className="bg-orange-700 hover:bg-orange-600 text-orange-100 px-2 py-2 rounded text-xs font-bold">+ UFO</button>
+          <button onClick={() => addBlock('wave-portal')} className="bg-cyan-700 hover:bg-cyan-600 text-cyan-100 px-2 py-2 rounded text-xs font-bold">+ WAVE</button>
+          <button onClick={() => addBlock('trampoline')} className="bg-lime-600 hover:bg-lime-500 text-lime-100 px-2 py-2 rounded text-xs font-bold">+ TRAMP</button>
           <button onClick={() => addBlock('wall')} className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-2 rounded text-xs font-bold">+ WALL</button>
           <button onClick={() => addBlock('win')} className="bg-emerald-900 hover:bg-emerald-800 text-emerald-100 px-2 py-2 rounded text-xs font-bold">+ WIN PAD</button>
           <button onClick={() => addBlock('gravity-up-portal')} className="bg-yellow-500 hover:bg-yellow-400 text-black px-2 py-2 rounded text-xs font-bold">+ GRAV UP</button>
