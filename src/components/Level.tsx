@@ -80,7 +80,7 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
           const rb = payload.other.rigidBody;
           if (rb) {
             const linvel = rb.linvel();
-            rb.setLinvel({ x: linvel.x, y: 22 * useGameStore.getState().gravityDirection, z: linvel.z }, true);
+            rb.setLinvel({ x: linvel.x, y: 50 * useGameStore.getState().gravityDirection, z: linvel.z }, true);
           }
         }
       }}
