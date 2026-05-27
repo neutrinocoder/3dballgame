@@ -142,9 +142,52 @@ export const officialLevels: CustomLevel[] = [
       // Bottomless pit of lava below the trampolines
       { id: uuidv4(), position: [0, -20, -555], size: [30, 2, 80], type: 'lava', color: '#ef4444' },
 
-      // Final Win Platform
+      // 14. EXTREME NARROW ICE SLIDE
       { id: uuidv4(), position: [0, 50, -595], size: [10, 1, 10], type: 'platform', color: '#cbd5e1', texture: 'sci_fi_metal' },
-      { id: uuidv4(), position: [0, 50, -605], size: [8, 1, 8], type: 'win', color: '#10b981', texture: 'neon_grid' }
+      { id: uuidv4(), position: [0, 50, -615], size: [4, 1, 30], type: 'ice', color: '#67e8f9', texture: 'ice' },
+      { id: uuidv4(), position: [0, 50, -645], size: [4, 1, 30], type: 'ice', color: '#67e8f9', texture: 'ice' },
+      
+      // Mud patches on the ice
+      { id: uuidv4(), position: [-1, 50, -620], size: [2, 1.1, 2], type: 'mud', color: '#78350f', texture: 'dirt' },
+      { id: uuidv4(), position: [1, 50, -630], size: [2, 1.1, 2], type: 'mud', color: '#78350f', texture: 'dirt' },
+      { id: uuidv4(), position: [-1, 50, -640], size: [2, 1.1, 2], type: 'mud', color: '#78350f', texture: 'dirt' },
+      { id: uuidv4(), position: [1, 50, -650], size: [2, 1.1, 2], type: 'mud', color: '#78350f', texture: 'dirt' },
+
+      // 15. DUAL GRAVITY UFO
+      { id: uuidv4(), position: [0, 52, -665], size: [8, 8, 2], type: 'ufo-portal', color: '#f97316' },
+      
+      { id: uuidv4(), position: [0, 60, -680], size: [8, 8, 2], type: 'gravity-up-portal', color: '#eab308' },
+      // Pipe upside down
+      { id: uuidv4(), position: [0, 80, -690], size: [20, 30, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' },
+      { id: uuidv4(), position: [0, 40, -690], size: [20, 10, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' },
+
+      { id: uuidv4(), position: [0, 50, -700], size: [8, 8, 2], type: 'gravity-down-portal', color: '#22c55e' },
+      // Pipe right side up
+      { id: uuidv4(), position: [0, 70, -710], size: [20, 10, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' },
+      { id: uuidv4(), position: [0, 30, -710], size: [20, 30, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' },
+
+      { id: uuidv4(), position: [0, 60, -720], size: [8, 8, 2], type: 'gravity-up-portal', color: '#eab308' },
+      // Pipe upside down
+      { id: uuidv4(), position: [0, 80, -730], size: [20, 30, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' },
+      { id: uuidv4(), position: [0, 40, -730], size: [20, 10, 2], type: 'wall', color: '#94a3b8', texture: 'neon_grid' },
+
+      // 16. FINAL WAVE DESCENT
+      { id: uuidv4(), position: [0, 50, -745], size: [8, 8, 2], type: 'gravity-down-portal', color: '#22c55e' },
+      { id: uuidv4(), position: [0, 50, -750], size: [8, 8, 2], type: 'wave-portal', color: '#06b6d4' },
+      
+      { id: uuidv4(), position: [0, 30, -780], size: [100, 2, 60], type: 'lava', color: '#ef4444' }, // floor
+      { id: uuidv4(), position: [0, 70, -780], size: [100, 2, 60], type: 'lava', color: '#ef4444' },  // ceiling
+      
+      { id: uuidv4(), position: [0, 35, -760], size: [30, 15, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 65, -770], size: [30, 15, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 35, -780], size: [30, 15, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 65, -790], size: [30, 15, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 35, -800], size: [30, 15, 2], type: 'wall', color: '#94a3b8', texture: 'sci_fi_metal' },
+      
+      // 17. FINAL WIN
+      { id: uuidv4(), position: [0, 50, -815], size: [8, 8, 2], type: 'sphere-portal', color: '#3b82f6' },
+      { id: uuidv4(), position: [0, 48, -825], size: [10, 1, 10], type: 'platform', color: '#cbd5e1', texture: 'sci_fi_metal' },
+      { id: uuidv4(), position: [0, 48, -837], size: [8, 1, 8], type: 'win', color: '#10b981', texture: 'neon_grid' }
     ]
   }
 ,
