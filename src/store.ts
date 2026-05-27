@@ -73,6 +73,12 @@ interface GameState {
   fullResetGame: () => void;
   levelEndZ: number;
   setLevelEndZ: (z: number) => void;
+  
+  isPracticeMode: boolean;
+  togglePracticeMode: () => void;
+  checkpoints: Array<{ position: [number, number, number], shape: 'sphere' | 'ship' | 'ufo' | 'wave', gravity: 1 | -1, euler: [number, number, number] }>;
+  addCheckpoint: (cp: { position: [number, number, number], shape: 'sphere' | 'ship' | 'ufo' | 'wave', gravity: 1 | -1, euler: [number, number, number] }) => void;
+  removeLastCheckpoint: () => void;
 }
 
 export const useGameStore = create<GameState>((set) => ({
@@ -88,12 +94,22 @@ export const useGameStore = create<GameState>((set) => ({
   setGravityDirection: (dir) => set({ gravityDirection: dir }),
   startTimer: () => set({ startTime: Date.now(), finishTime: null, deaths: 0 }),
   stopTimer: () => set({ finishTime: Date.now() }),
-  resetGame: () => set({ 
-    status: 'playing', 
-    playerShape: 'sphere',
-    gravityDirection: 1,
-    finishTime: null,
-    startTime: Date.now()
+  resetGame: () => set((state) => {
+    if (state.isPracticeMode && state.checkpoints.length > 0) {
+      const lastCp = state.checkpoints[state.checkpoints.length - 1];
+      return {
+        status: 'playing',
+        playerShape: lastCp.shape,
+        gravityDirection: lastCp.gravity,
+      };
+    }
+    return { 
+      status: 'playing', 
+      playerShape: 'sphere',
+      gravityDirection: 1,
+      finishTime: null,
+      startTime: Date.now()
+    };
   }),
   fullResetGame: () => set({ 
     status: 'playing', 
@@ -101,9 +117,20 @@ export const useGameStore = create<GameState>((set) => ({
     startTime: Date.now(), 
     playerShape: 'sphere', 
     deaths: 0,
-    gravityDirection: 1
+    gravityDirection: 1,
+    isPracticeMode: false,
+    checkpoints: []
   }),
   levelEndZ: 0,
-  setLevelEndZ: (z) => set({ levelEndZ: z })
+  setLevelEndZ: (z) => set({ levelEndZ: z }),
+  
+  isPracticeMode: false,
+  togglePracticeMode: () => set((state) => ({ 
+    isPracticeMode: !state.isPracticeMode, 
+    checkpoints: [] 
+  })),
+  checkpoints: [],
+  addCheckpoint: (cp) => set((state) => ({ checkpoints: [...state.checkpoints, cp] })),
+  removeLastCheckpoint: () => set((state) => ({ checkpoints: state.checkpoints.slice(0, -1) }))
 }));
 

@@ -28,7 +28,13 @@ export function Player() {
 
   useEffect(() => {
     if (status === 'playing' && body.current) {
-      body.current.setTranslation({ x: 0, y: 1, z: 0 }, true);
+      const state = useGameStore.getState();
+      if (state.isPracticeMode && state.checkpoints.length > 0) {
+        const cp = state.checkpoints[state.checkpoints.length - 1];
+        body.current.setTranslation({ x: cp.position[0], y: cp.position[1], z: cp.position[2] }, true);
+      } else {
+        body.current.setTranslation({ x: 0, y: 1, z: 0 }, true);
+      }
       body.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
       body.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
     }
@@ -90,15 +96,51 @@ export function Player() {
   // Reset position when status is 'playing' again after death
   useEffect(() => {
     if (status === 'playing' && body.current) {
-      body.current.setTranslation({ x: 0, y: 1, z: 0 }, true);
-      body.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
-      body.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
-      euler.current.set(0, 0, 0); // reset camera angles
+      const state = useGameStore.getState();
+      if (state.isPracticeMode && state.checkpoints.length > 0) {
+        const cp = state.checkpoints[state.checkpoints.length - 1];
+        body.current.setTranslation({ x: cp.position[0], y: cp.position[1], z: cp.position[2] }, true);
+        body.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
+        body.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
+        euler.current.set(cp.euler[0], cp.euler[1], cp.euler[2]);
+      } else {
+        body.current.setTranslation({ x: 0, y: 1, z: 0 }, true);
+        body.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
+        body.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
+        euler.current.set(0, 0, 0); // reset camera angles
+      }
     } else {
       if (document.pointerLockElement) {
         document.exitPointerLock();
       }
     }
+  }, [status]);
+
+  // Practice Mode Checkpoints Input
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const state = useGameStore.getState();
+      if (status !== 'playing') return;
+      if (!state.isPracticeMode) return;
+
+      if (e.key.toLowerCase() === 'z') {
+        if (body.current) {
+          const t = body.current.translation();
+          state.addCheckpoint({
+            position: [t.x, t.y, t.z],
+            shape: state.playerShape,
+            gravity: state.gravityDirection,
+            euler: [euler.current.x, euler.current.y, euler.current.z]
+          });
+        }
+      } else if (e.key.toLowerCase() === 'x') {
+        if (state.checkpoints.length > 0) {
+           state.removeLastCheckpoint();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [status]);
 
   useFrame((state, delta) => {

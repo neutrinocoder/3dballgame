@@ -7,6 +7,8 @@ export function UI() {
   const resetGame = useGameStore((s) => s.resetGame);
   const startTime = useGameStore((s) => s.startTime);
   const finishTime = useGameStore((s) => s.finishTime);
+  const isPracticeMode = useGameStore((s) => s.isPracticeMode);
+  const togglePracticeMode = useGameStore((s) => s.togglePracticeMode);
   const setView = useAppStore((s) => s.setView);
 
   const timeToDisplay = finishTime ? (finishTime - startTime) / 1000 : 0;
@@ -22,11 +24,13 @@ export function UI() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key.toLowerCase() === 'r') {
         resetGame();
+      } else if (e.key.toLowerCase() === 'p') {
+        togglePracticeMode();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [resetGame]);
+  }, [resetGame, togglePracticeMode]);
 
   return (
     <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-6 z-10">
@@ -34,8 +38,13 @@ export function UI() {
         <div>
           <h1 className="text-3xl font-bold font-mono tracking-wider">OBBY RUN</h1>
           <p className="font-mono text-sm mt-1 opacity-80 uppercase tracking-widest">
-            WASD: Move / Space: Jump / R: Restart
+            WASD: Move / Space: Jump / R: Restart / P: Practice
           </p>
+          {isPracticeMode && (
+            <div className="mt-2 inline-block px-3 py-1 bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 rounded text-xs font-bold tracking-widest shadow-[0_0_10px_rgba(6,182,212,0.3)] animate-pulse">
+              PRACTICE MODE (Z: Place CP, X: Remove CP)
+            </div>
+          )}
           <button 
             onClick={handleMenu}
             className="mt-4 pointer-events-auto px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur border border-white/20 text-white rounded text-sm tracking-widest"
