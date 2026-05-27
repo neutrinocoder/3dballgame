@@ -88,7 +88,7 @@ export const officialLevels: CustomLevel[] = [
       
       // 9. TRAMPOLINE JUMP
       { id: uuidv4(), position: [0, -5, -325], size: [10, 1, 10], type: 'platform', color: '#cbd5e1', texture: 'sci_fi_metal' },
-      { id: uuidv4(), position: [0, -5, -337], size: [4, 1, 4], type: 'trampoline', color: '#84cc16' },
+      { id: uuidv4(), position: [0, -5, -337], size: [4, 1, 4], type: 'trampoline-red', color: '#84cc16' },
       
       // The trampoline bounces you HIGH up, then you enter a Wave portal mid-air!
       { id: uuidv4(), position: [0, 10, -345], size: [8, 8, 2], type: 'wave-portal', color: '#06b6d4' },
@@ -135,9 +135,9 @@ export const officialLevels: CustomLevel[] = [
       // 13. SPHERE TRAMPOLINE CHAIN
       { id: uuidv4(), position: [0, 10, -520], size: [8, 8, 2], type: 'sphere-portal', color: '#3b82f6' },
       
-      { id: uuidv4(), position: [0, 0, -535], size: [4, 1, 4], type: 'trampoline', color: '#84cc16' },
-      { id: uuidv4(), position: [0, 20, -555], size: [4, 1, 4], type: 'trampoline', color: '#84cc16' },
-      { id: uuidv4(), position: [0, 40, -575], size: [4, 1, 4], type: 'trampoline', color: '#84cc16' },
+      { id: uuidv4(), position: [0, 0, -535], size: [4, 1, 4], type: 'trampoline-red', color: '#84cc16' },
+      { id: uuidv4(), position: [0, 20, -555], size: [4, 1, 4], type: 'trampoline-red', color: '#84cc16' },
+      { id: uuidv4(), position: [0, 40, -575], size: [4, 1, 4], type: 'trampoline-red', color: '#84cc16' },
       
       // Bottomless pit of lava below the trampolines
       { id: uuidv4(), position: [0, -20, -555], size: [30, 2, 80], type: 'lava', color: '#ef4444' },

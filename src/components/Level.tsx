@@ -15,7 +15,9 @@ export interface PlatformProps {
   isWin?: boolean;
   isIce?: boolean;
   isMud?: boolean;
-  isTrampoline?: boolean;
+  isTrampolineYellow?: boolean;
+  isTrampolineOrange?: boolean;
+  isTrampolineRed?: boolean;
   isShipPortal?: boolean;
   isSpherePortal?: boolean;
   isUfoPortal?: boolean;
@@ -26,7 +28,7 @@ export interface PlatformProps {
   texture?: string;
 }
 
-export function Platform({ position, size, color = '#ffffff', isLava, isWin, isIce, isMud, isTrampoline, isShipPortal, isSpherePortal, isUfoPortal, isWavePortal, isWall, isGravityUpPortal, isGravityDownPortal, texture }: PlatformProps) {
+export function Platform({ position, size, color = '#ffffff', isLava, isWin, isIce, isMud, isTrampolineYellow, isTrampolineOrange, isTrampolineRed, isShipPortal, isSpherePortal, isUfoPortal, isWavePortal, isWall, isGravityUpPortal, isGravityDownPortal, texture }: PlatformProps) {
   const addDeath = useGameStore((s) => s.addDeath);
   const setStatus = useGameStore((s) => s.setStatus);
   const stopTimer = useGameStore((s) => s.stopTimer);
@@ -76,11 +78,14 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
           addDeath(); // Ship dies on any solid block
         }
         
-        if (isTrampoline) {
+        if (isTrampolineYellow || isTrampolineOrange || isTrampolineRed) {
           const rb = payload.other.rigidBody;
           if (rb) {
             const linvel = rb.linvel();
-            rb.setLinvel({ x: linvel.x, y: 50 * useGameStore.getState().gravityDirection, z: linvel.z }, true);
+            let bounceY = 22; // Yellow default
+            if (isTrampolineOrange) bounceY = 35;
+            if (isTrampolineRed) bounceY = 50;
+            rb.setLinvel({ x: linvel.x, y: bounceY * useGameStore.getState().gravityDirection, z: linvel.z }, true);
           }
         }
       }}
@@ -96,7 +101,7 @@ export function Platform({ position, size, color = '#ffffff', isLava, isWin, isI
           <BlockMaterial texture={texture} size={size} color={color} emissive={color} emissiveIntensity={2.5} transparent opacity={0.6} depthWrite={false} side={THREE.DoubleSide} />
         ) : isMud ? (
           <BlockMaterial texture="dirt" size={size} color={color} roughness={1} />
-        ) : isTrampoline ? (
+        ) : (isTrampolineYellow || isTrampolineOrange || isTrampolineRed) ? (
           <BlockMaterial texture={texture || "neon_grid"} size={size} color={color} emissive={color} emissiveIntensity={0.5} roughness={0.3} />
         ) : isWall ? (
           <BlockMaterial texture={texture} size={size} color={color} transparent={texture === 'glass'} opacity={texture === 'glass' ? 0.4 : 1} roughness={texture === 'glass' ? 0.1 : 1} />
@@ -151,7 +156,9 @@ export function Level() {
           isWall={block.type === 'wall'}
           isGravityUpPortal={block.type === 'gravity-up-portal'}
           isGravityDownPortal={block.type === 'gravity-down-portal'}
-          isTrampoline={block.type === 'trampoline'}
+          isTrampolineYellow={block.type === 'trampoline-yellow'}
+          isTrampolineOrange={block.type === 'trampoline-orange'}
+          isTrampolineRed={block.type === 'trampoline-red'}
           texture={block.texture}
         />
       ))}

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type BlockType = 'platform' | 'lava' | 'win' | 'ice' | 'mud' | 'trampoline' | 'ship-portal' | 'sphere-portal' | 'ufo-portal' | 'wave-portal' | 'wall' | 'gravity-up-portal' | 'gravity-down-portal';
+export type BlockType = 'platform' | 'lava' | 'win' | 'ice' | 'mud' | 'trampoline-yellow' | 'trampoline-orange' | 'trampoline-red' | 'ship-portal' | 'sphere-portal' | 'ufo-portal' | 'wave-portal' | 'wall' | 'gravity-up-portal' | 'gravity-down-portal';
 
 export type BackgroundTheme = 'sunny' | 'neon' | 'dark' | 'glow' | 'space';
 

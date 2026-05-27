@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as THREE from 'three';
 import { BlockMaterial } from './BlockMaterial';
 import { Background } from './Background';
+import { officialLevels } from '../officialLevels';
 
 function JumpIndicator({ block }: { block: LevelBlock }) {
   if (block.type !== 'platform' && block.type !== 'ice' && block.type !== 'mud') return null;
@@ -91,7 +92,12 @@ export function LevelEditor() {
   useEffect(() => {
     if (currentLevelId) {
       const existing = customLevels.find(l => l.id === currentLevelId);
-      if (existing) setLevel(existing);
+      if (existing) {
+        setLevel(existing);
+      } else {
+        const official = officialLevels.find(l => l.id === currentLevelId);
+        if (official) setLevel(official);
+      }
     }
   }, [currentLevelId, customLevels]);
 
@@ -300,7 +306,9 @@ export function LevelEditor() {
           <button onClick={() => addBlock('sphere-portal')} className="bg-blue-900 hover:bg-blue-800 text-blue-100 px-2 py-2 rounded text-xs font-bold">+ SPHERE</button>
           <button onClick={() => addBlock('ufo-portal')} className="bg-orange-700 hover:bg-orange-600 text-orange-100 px-2 py-2 rounded text-xs font-bold">+ UFO</button>
           <button onClick={() => addBlock('wave-portal')} className="bg-cyan-700 hover:bg-cyan-600 text-cyan-100 px-2 py-2 rounded text-xs font-bold">+ WAVE</button>
-          <button onClick={() => addBlock('trampoline')} className="bg-lime-600 hover:bg-lime-500 text-lime-100 px-2 py-2 rounded text-xs font-bold">+ TRAMP</button>
+          <button onClick={() => addBlock('trampoline-yellow')} className="bg-yellow-600 hover:bg-yellow-500 text-yellow-100 px-2 py-2 rounded text-xs font-bold">+ TRAMP Y</button>
+          <button onClick={() => addBlock('trampoline-orange')} className="bg-orange-500 hover:bg-orange-400 text-orange-100 px-2 py-2 rounded text-xs font-bold">+ TRAMP O</button>
+          <button onClick={() => addBlock('trampoline-red')} className="bg-red-600 hover:bg-red-500 text-red-100 px-2 py-2 rounded text-xs font-bold">+ TRAMP R</button>
           <button onClick={() => addBlock('wall')} className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-2 rounded text-xs font-bold">+ WALL</button>
           <button onClick={() => addBlock('win')} className="bg-emerald-900 hover:bg-emerald-800 text-emerald-100 px-2 py-2 rounded text-xs font-bold">+ WIN PAD</button>
           <button onClick={() => addBlock('gravity-up-portal')} className="bg-yellow-500 hover:bg-yellow-400 text-black px-2 py-2 rounded text-xs font-bold">+ GRAV UP</button>
