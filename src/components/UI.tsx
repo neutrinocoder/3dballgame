@@ -49,6 +49,11 @@ export function UI() {
           </p>
         </div>
       </div>
+      
+      {/* Progress Bar */}
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 w-[300px] sm:w-[500px] h-3 bg-black/40 backdrop-blur rounded-full overflow-hidden border border-white/20 shadow-lg">
+        <div id="progress-bar-fill" className="h-full bg-emerald-400 w-0 shadow-[0_0_10px_rgba(52,211,153,0.8)]"></div>
+      </div>
 
       {status === 'dead' && (
         <div className="absolute inset-0 flex items-center justify-center bg-red-900/40 backdrop-blur-sm pointer-events-auto transition-all animate-in fade-in duration-300">

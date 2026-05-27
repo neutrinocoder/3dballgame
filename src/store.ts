@@ -71,6 +71,8 @@ interface GameState {
   stopTimer: () => void;
   resetGame: () => void;
   fullResetGame: () => void;
+  levelEndZ: number;
+  setLevelEndZ: (z: number) => void;
 }
 
 export const useGameStore = create<GameState>((set) => ({
@@ -100,6 +102,8 @@ export const useGameStore = create<GameState>((set) => ({
     playerShape: 'sphere', 
     deaths: 0,
     gravityDirection: 1
-  })
+  }),
+  levelEndZ: 0,
+  setLevelEndZ: (z) => set({ levelEndZ: z })
 }));
 

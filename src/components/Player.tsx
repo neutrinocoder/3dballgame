@@ -117,6 +117,16 @@ export function Player() {
       addDeath();
       return;
     }
+    
+    // Update Progress Bar
+    const levelEndZ = useGameStore.getState().levelEndZ;
+    if (levelEndZ < 0) {
+      const progressBar = document.getElementById('progress-bar-fill');
+      if (progressBar) {
+         const p = Math.min(100, Math.max(0, (translation.z / levelEndZ) * 100));
+         progressBar.style.width = `${p}%`;
+      }
+    }
 
     // Input vector relative to camera
     const inputVector = new THREE.Vector3(0, 0, 0);

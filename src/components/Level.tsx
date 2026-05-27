@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { RigidBody, CuboidCollider } from '@react-three/rapier';
 import { useAppStore, LevelBlock } from '../store';
 import { useGameStore } from '../store';
@@ -117,6 +118,19 @@ export function Level() {
     const official = officialLevels.find(l => l.id === currentLevelId);
     blocks = custom?.blocks || official?.blocks || blocks;
   }
+  
+  const setLevelEndZ = useGameStore(s => s.setLevelEndZ);
+  
+  // Find the lowest Z position among all win blocks
+  // If no win block, default to -100
+  const endZ = blocks
+    .filter(b => b.type === 'win')
+    .reduce((min, b) => Math.min(min, b.position[2]), 0) || -100;
+    
+  // We use a ref or effect to set it without looping renders.
+  useEffect(() => {
+    setLevelEndZ(endZ);
+  }, [endZ, setLevelEndZ]);
 
   return (
     <group>
